@@ -7,7 +7,7 @@
       <File FileName="Assets/Scripts/HealthBar.cs" Line="13" Column="1" />
       <File FileName="Assets/Scripts/PlayerAttack.cs" Line="17" Column="6" />
       <File FileName="Assets/Rachel/Scripts/LevelManager.cs" Line="15" Column="1" />
-      <File FileName="Assets/Rachel/Scripts/Select Scrips/SelectManager.cs" Line="27" Column="42" />
+      <File FileName="Assets/Rachel/Scripts/Select Scrips/SelectManager.cs" Line="27" Column="20" />
       <File FileName="Assets/Rachel/Scripts/Select Scrips/EnemySelectable.cs" Line="24" Column="41" />
     </Files>
     <Pads>
