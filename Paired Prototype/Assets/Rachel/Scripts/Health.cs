@@ -51,10 +51,16 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        //player death unimplemented
+        //enemy death
         if (!player)
         {
             Destroy(gameObject);
+        }
+
+        //player death
+        else
+        {
+
         }
     }
 }
