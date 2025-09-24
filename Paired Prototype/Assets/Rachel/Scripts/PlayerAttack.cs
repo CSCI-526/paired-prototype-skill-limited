@@ -15,6 +15,13 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        enemy.TakeDamage(damage);
+        if (SelectManager.Instance != null && SelectManager.Instance.Current != null)
+        {
+            Health enemyHealth = SelectManager.Instance.Current.GetComponent<Health>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+        }
     }
 }
