@@ -1,27 +1,50 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 
 public class CardDisplay : MonoBehaviour
 {
-    [Header("Data")]
     public CardData cardData;
+    public TMP_Text nameText;
+    public TMP_Text powerText;
+    public TMP_Text descText;  // long multi-line
+    private CardInstance instance;
 
-    [Header("UI Refs")]
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI powerText;
-    public TextMeshProUGUI descText;
-
-    public void Init(CardData data)
+    public void Init(CardInstance card)
     {
-        cardData = data;
-        if (nameText)  nameText.text  = data.cardName;
-        if (powerText) powerText.text = data.power.ToString();
-        if (descText)  descText.text  = data.description;
+        instance = card;
+        nameText.text = card.GetDisplayName();
+        if (powerText != null)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            var ph = player != null ? player.GetComponent<Health>() : null;
+            powerText.text = ph != null ? ph.power.ToString() : "0";
+        }
+        descText.text = BuildEffectText(card);
     }
 
-    // Handy for previewing in Editor if you assign cardData in Inspector
-    private void OnValidate()
+    private string BuildEffectText(CardInstance card)
     {
-        if (cardData != null) Init(cardData);
+        // Use TMP rich text for color (green for pos, red for neg)
+        StringBuilder sb = new StringBuilder();
+
+        foreach (var eff in card.Effects)
+        {
+            if (eff == null) continue;
+            string line = eff.description;
+
+            switch (eff.effectType)
+            {
+                case EffectType.Positive: line = $"<color=#00C853>{line}</color>"; break; // green
+                case EffectType.Negative: line = $"<color=#D50000>{line}</color>"; break; // red
+                default: break;
+            }
+            sb.AppendLine(line);
+        }
+
+        return sb.ToString().TrimEnd();
     }
+
+    // If effects change after shown (upgrade/curse), re-render:
+    public void Refresh() { if (instance != null) Init(instance); }
 }

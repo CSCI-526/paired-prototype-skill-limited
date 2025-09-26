@@ -10,11 +10,25 @@ public class ButtonActions : MonoBehaviour
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        //player attacks an enemy
-        //temporary
-        //temp player movement
-        PlayerAttack p_atk = player.GetComponent<PlayerAttack>();
-        p_atk.Attack();
+        // Try to play a card from the deck instead of the temp attack
+        var deck = DeckService.Instance != null ? DeckService.Instance.Deck : null;
+        if (deck != null && deck.Count > 0)
+        {
+            var playerHealth = player != null ? player.GetComponent<Health>() : null;
+            Health targetHealth = null;
+            if (SelectManager.Instance != null && SelectManager.Instance.Current != null)
+                targetHealth = SelectManager.Instance.Current.GetComponent<Health>();
+
+            // Play the first card for now
+            var card = deck[0];
+            card.Play(playerHealth, targetHealth);
+        }
+        else
+        {
+            // Fallback to temp player attack if no cards
+            PlayerAttack p_atk = player.GetComponent<PlayerAttack>();
+            p_atk.Attack();
+        }
 
         //enemies attack player
         foreach (var e in enemies)
