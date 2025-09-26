@@ -108,3 +108,9 @@ UserSettings/
 *.csproj
 *.sln
 *.user
+
+# Mac
+.DS_Store
+
+# VS Code
+.vscode/
