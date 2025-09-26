@@ -1,8 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class EnemyLeveler : MonoBehaviour
+public class EnemyWaveManager : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefabs;
+    public string resourcesFolder = "Enemies";
     public Transform[] spawnPoints;
 
     public int startEnemies = 1;
@@ -14,59 +16,51 @@ public class EnemyLeveler : MonoBehaviour
 
     public int seed = 0;
 
-    private int level = 0;
     private int currentCount;
     private float hpMult = 1f;
     private float atkMult = 1f;
-    private int baseHP = 100;
-    private int baseATK = 5;
     private System.Random rng;
 
     void Awake()
     {
         rng = seed == 0 ? new System.Random() : new System.Random(seed);
         currentCount = Mathf.Clamp(startEnemies, 1, maxEnemies);
-
-        if (enemyPrefab)
+        if (enemyPrefabs == null || enemyPrefabs.Count == 0)
         {
-            var h = enemyPrefab.GetComponent<Health>();
-            if (h) baseHP = Mathf.Max(1, h.maxHealth);
-            var a = enemyPrefab.GetComponent<EnemyAttack>();
-            if (a) baseATK = Mathf.Max(1, a.damage);
+            var loaded = Resources.LoadAll<GameObject>(resourcesFolder);
+            if (loaded != null && loaded.Length > 0)
+                enemyPrefabs = new List<GameObject>(loaded);
         }
     }
 
-    public void NextRound()
+    public void ApplyUpgradeAndSpawn()
     {
-        level++;
         int pick = rng.Next(0, 3);
         if (pick == 0) hpMult += hpStep;
         else if (pick == 1) atkMult += atkStep;
         else currentCount = Mathf.Clamp(currentCount + countStep, 1, maxEnemies);
 
-        DespawnAll();
         SpawnWave();
-    }
-
-    private void DespawnAll()
-    {
-        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < enemies.Length; i++) Destroy(enemies[i]);
     }
 
     private void SpawnWave()
     {
-        if (enemyPrefab == null || spawnPoints == null || spawnPoints.Length == 0) return;
+        if (enemyPrefabs == null || enemyPrefabs.Count == 0) return;
+        if (spawnPoints == null || spawnPoints.Length == 0) return;
 
         for (int i = 0; i < currentCount; i++)
         {
+            var prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
             var p = spawnPoints[i % spawnPoints.Length];
-            var go = Instantiate(enemyPrefab, p.position, p.rotation);
+            var go = Instantiate(prefab, p.position, p.rotation);
+
+            var hPrefab = prefab.GetComponent<Health>();
+            var aPrefab = prefab.GetComponent<EnemyAttack>();
 
             var h = go.GetComponent<Health>();
-            if (h)
+            if (h && hPrefab)
             {
-                int hp = Mathf.Max(1, Mathf.RoundToInt(baseHP * hpMult));
+                int hp = Mathf.Max(1, Mathf.RoundToInt(hPrefab.maxHealth * hpMult));
                 h.maxHealth = hp;
                 h.currentHealth = hp;
                 var bar = go.GetComponentInChildren<HealthBar>();
@@ -74,9 +68,9 @@ public class EnemyLeveler : MonoBehaviour
             }
 
             var atk = go.GetComponent<EnemyAttack>();
-            if (atk)
+            if (atk && aPrefab)
             {
-                int dmg = Mathf.Max(1, Mathf.RoundToInt(baseATK * atkMult));
+                int dmg = Mathf.Max(1, Mathf.RoundToInt(aPrefab.damage * atkMult));
                 atk.damage = dmg;
             }
         }

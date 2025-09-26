@@ -41,7 +41,7 @@ public class ButtonActions : MonoBehaviour
             lm.NextLevel();
 
             //move onto next level
-            //unimplemented
+            FindObjectOfType<EnemyWaveManager>()?.ApplyUpgradeAndSpawn();
         }
     }
 }
