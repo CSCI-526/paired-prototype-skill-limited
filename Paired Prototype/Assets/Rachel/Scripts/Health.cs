@@ -54,6 +54,10 @@ public class Health : MonoBehaviour
         //enemy death
         if (!player)
         {
+            if (SelectManager.Instance.Current != null && SelectManager.Instance.Current.gameObject == this.gameObject)
+            {
+                SelectManager.Instance?.ClearSelection();
+            }
             Destroy(gameObject);
         }
 

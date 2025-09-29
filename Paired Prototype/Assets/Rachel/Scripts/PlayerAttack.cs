@@ -15,7 +15,7 @@ public class PlayerAttack : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
-    private IEnumerator AttackLunge()
+    private IEnumerator AttackLunge(Transform transform)
     {
         Vector3 start = player.transform.localPosition;
         Vector3 forward = start + new Vector3(40.0f, 0, 0);
@@ -27,6 +27,8 @@ public class PlayerAttack : MonoBehaviour
             player.transform.localPosition = Vector3.Lerp(start, forward, t);
             yield return null;
         }
+
+        DamageInit.I.Show(damage, transform.position + Vector3.up * 90.0f + Vector3.right * 30.0f); ;
 
         t = 0;
         while (t < 1f)
@@ -44,7 +46,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (SelectManager.Instance != null && SelectManager.Instance.Current != null)
             {
-                StartCoroutine(AttackLunge());
+                StartCoroutine(AttackLunge(SelectManager.Instance.Current.transform));
 
                 Health enemyHealth = SelectManager.Instance.Current.GetComponent<Health>();
                 if (enemyHealth != null)

@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class ButtonActions : MonoBehaviour
 {
+
+    private bool isTurnRunning = false;
+
     public void OnPlayCardClick()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (isTurnRunning) return;
+        StartCoroutine(PlayAttackSeq());
+    }
+
+    private IEnumerator PlayAttackSeq()
+    {
+        isTurnRunning = true;
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         PlayerAttack p_atk = player.GetComponent<PlayerAttack>();
 
-        StartCoroutine(PlayAttackSeq(enemies, p_atk));
-    }
-
-    private IEnumerator PlayAttackSeq(GameObject[] enemies, PlayerAttack player)
-    {
         //temp player movement
-        player.Attack();
+        p_atk.Attack();
         yield return new WaitForSeconds(0.5f);
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         //enemies attack player
         foreach (var e in enemies)
         {
-            if (!e.activeInHierarchy) continue;
+            //if (!e.activeInHierarchy) continue;
 
             EnemyAttack atk = e.GetComponent<EnemyAttack>();
             if (atk != null)
@@ -35,6 +41,8 @@ public class ButtonActions : MonoBehaviour
         }
 
         StartCoroutine(CheckAllEnemiesDead());
+
+        isTurnRunning = false;
     }
 
     private IEnumerator CheckAllEnemiesDead()

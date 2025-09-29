@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - HealthBar
   - HealthText
+  - DamageTxt
+  - DamagePts
+  - UI
   layers:
   - Default
   - TransparentFX
