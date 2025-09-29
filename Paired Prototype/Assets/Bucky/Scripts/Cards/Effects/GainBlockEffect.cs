@@ -5,7 +5,7 @@ public class GainBlockEffect : CardEffect
 {
     public int block;
 
-    private void OnEnable()
+    private void OnValidate()
     {
         effectType = EffectType.Positive;
         description = $"Gain {block} block";

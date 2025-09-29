@@ -15,6 +15,5 @@ public class LosePowerEffect : CardEffect
     {
         if (player == null) return;
         player.power -= amount;
-        if (player.power < 0) player.power = 0;
     }
 }

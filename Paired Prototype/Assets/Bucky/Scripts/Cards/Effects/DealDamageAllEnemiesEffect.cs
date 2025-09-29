@@ -5,7 +5,7 @@ public class DealDamageAllEnemiesEffect : CardEffect
 {
     public int damage;
 
-    private void OnEnable()
+    private void OnValidate()
     {
         effectType = EffectType.Positive;
         description = $"Deal {damage} damage to all enemies";
@@ -21,7 +21,8 @@ public class DealDamageAllEnemiesEffect : CardEffect
             var h = e.GetComponent<Health>();
             if (h != null)
             {
-                h.TakeDamage(damage + bonus);
+                int final = Mathf.Max(0, damage + bonus);
+                h.TakeDamage(final);
             }
         }
     }

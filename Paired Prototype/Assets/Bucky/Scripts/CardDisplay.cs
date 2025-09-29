@@ -6,21 +6,30 @@ public class CardDisplay : MonoBehaviour
 {
     public CardData cardData;
     public TMP_Text nameText;
-    public TMP_Text powerText;
     public TMP_Text descText;  // long multi-line
     private CardInstance instance;
+
+    void Awake()
+    {
+        // Allow prefab to work when dropped in the scene with only CardData set
+        if (instance == null && cardData != null)
+        {
+            Init(cardData);
+        }
+    }
 
     public void Init(CardInstance card)
     {
         instance = card;
         nameText.text = card.GetDisplayName();
-        if (powerText != null)
-        {
-            var player = GameObject.FindGameObjectWithTag("Player");
-            var ph = player != null ? player.GetComponent<Health>() : null;
-            powerText.text = ph != null ? ph.power.ToString() : "0";
-        }
         descText.text = BuildEffectText(card);
+    }
+
+    public void Init(CardData data)
+    {
+        if (data == null) return;
+        var temp = new CardInstance(data);
+        Init(temp);
     }
 
     private string BuildEffectText(CardInstance card)

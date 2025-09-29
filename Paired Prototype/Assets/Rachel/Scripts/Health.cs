@@ -64,7 +64,6 @@ public class Health : MonoBehaviour
     public void GainPower(int amount)
     {
         power += amount;
-        if (power < 0) power = 0;
     }
 
     private void UpdateBar()

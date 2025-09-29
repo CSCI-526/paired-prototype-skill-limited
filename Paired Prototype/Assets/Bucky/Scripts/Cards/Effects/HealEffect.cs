@@ -5,7 +5,7 @@ public class HealEffect : CardEffect
 {
     public int amount;
 
-    private void OnEnable()
+    private void OnValidate()
     {
         effectType = EffectType.Positive;
         description = $"Heal {amount} HP";

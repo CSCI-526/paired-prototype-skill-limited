@@ -5,7 +5,7 @@ public class SelfDamageEffect : CardEffect
 {
     public int damage;
 
-    private void OnEnable()
+    private void OnValidate()
     {
         effectType = EffectType.Negative;
         description = $"Deal {damage} damage to yourself";
