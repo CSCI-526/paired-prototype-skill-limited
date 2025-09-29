@@ -39,7 +39,7 @@ public class ButtonActions : MonoBehaviour
             //change level UI
             var lm = FindObjectOfType<LevelManager>();
             lm.NextLevel();
-
+            //LevelLoader.Instance?.LoadReward();
             //move onto next level
             FindObjectOfType<EnemyWaveManager>()?.ApplyUpgradeAndSpawn();
         }

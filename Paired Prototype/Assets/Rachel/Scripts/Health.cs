@@ -74,7 +74,7 @@ public class Health : MonoBehaviour
             if (levelsBeaten > best) PlayerPrefs.SetInt("BestLevelsBeaten", levelsBeaten);
             PlayerPrefs.Save();
 
-            SceneManager.LoadScene("GameOver");
+           LevelLoader.Instance?.LoadGameOver();
         }
     }
 }

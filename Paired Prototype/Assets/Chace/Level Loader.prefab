@@ -169,6 +169,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b4e6008c65904caa8a85d40dd49b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transition: {fileID: 0}
+  transitionTime: 1
+  actionScene: ActionScene
+  rewardScene: CardRewardScene
+  gameOverScene: GameOverScene
+  mainMenuScene: MainMenuScene
 --- !u!1 &8526901107188873217
 GameObject:
   m_ObjectHideFlags: 0

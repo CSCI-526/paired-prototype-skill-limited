@@ -1,41 +1,46 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    public Animator transition;
-    public float transitionTime = 1f;
-    // Update is called once per frame
-    void Update()
+    public static LevelLoader Instance;
+
+    [Header("UI Transition")]
+    public Animator transition;       // trigger name must be "Start"
+    public float transitionTime = 1f; // seconds
+
+    [Header("Scene Names")]
+    public string actionScene;
+    public string rewardScene;
+    public string gameOverScene;
+    public string mainMenuScene;
+
+    bool isLoading;
+
+    void Awake()
     {
-        //trigger level load after After player either upgrades or gained new cards or presses L key
-        if (PlayerHasUpgraded() || PlayerHasGainedNewCards() || Input.GetKeyDown(KeyCode.L))
-        {
-            LoadNextLevel();
-        }
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
+        DontDestroyOnLoad(gameObject); // keep the wipe across scenes
     }
 
-    private bool PlayerHasUpgraded()
+    public void LoadAction()     => LoadScene(actionScene);
+    public void LoadReward()     => LoadScene(rewardScene);
+    public void LoadGameOver()   => LoadScene(gameOverScene);
+    public void LoadMainMenu()   => LoadScene(mainMenuScene);
+
+    public void LoadScene(string sceneName)
     {
-        return false;
+        if (!isLoading) StartCoroutine(LoadRoutine(sceneName));
     }
 
-    private bool PlayerHasGainedNewCards()
+    IEnumerator LoadRoutine(string sceneName)
     {
-        return false;
-    }
-
-    private void LoadNextLevel()
-    {
-        StartCoroutine(LoadLevelAfterDelay(SceneManager.GetActiveScene().buildIndex + 1));
-    }
-
-    IEnumerator LoadLevelAfterDelay(int levelIndex)
-    {
-        transition.SetTrigger("Start");
-        yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(levelIndex);
+        isLoading = true;
+        if (transition) transition.SetTrigger("Start");
+        yield return new WaitForSecondsRealtime(transitionTime);
+        SceneManager.LoadScene(sceneName);
+        isLoading = false;
     }
 }
