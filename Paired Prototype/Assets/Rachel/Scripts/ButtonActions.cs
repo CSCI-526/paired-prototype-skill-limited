@@ -9,12 +9,16 @@ public class ButtonActions : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-        //player attacks an enemy
-        //temporary
-        //temp player movement
         PlayerAttack p_atk = player.GetComponent<PlayerAttack>();
-        p_atk.Attack();
+
+        StartCoroutine(PlayAttackSeq(enemies, p_atk));
+    }
+
+    private IEnumerator PlayAttackSeq(GameObject[] enemies, PlayerAttack player)
+    {
+        //temp player movement
+        player.Attack();
+        yield return new WaitForSeconds(0.5f);
 
         //enemies attack player
         foreach (var e in enemies)
@@ -23,10 +27,13 @@ public class ButtonActions : MonoBehaviour
 
             EnemyAttack atk = e.GetComponent<EnemyAttack>();
             if (atk != null)
+            {
                 atk.Attack();
-        } 
+                yield return new WaitForSeconds(0.5f);
+            }
 
-        //check if all enemies are dead
+        }
+
         StartCoroutine(CheckAllEnemiesDead());
     }
 
