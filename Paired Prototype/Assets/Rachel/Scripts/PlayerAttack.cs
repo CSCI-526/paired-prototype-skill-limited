@@ -6,21 +6,24 @@ public class PlayerAttack : MonoBehaviour
 {
     //temporary for testing
     public int damage = 5;
-    private Health enemy;
+    private Health player;
 
     void Awake()
     {
-        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Health>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
     public void Attack()
     {
-        if (SelectManager.Instance != null && SelectManager.Instance.Current != null)
+        if (player.currentHealth > 0)
         {
-            Health enemyHealth = SelectManager.Instance.Current.GetComponent<Health>();
-            if (enemyHealth != null)
+            if (SelectManager.Instance != null && SelectManager.Instance.Current != null)
             {
-                enemyHealth.TakeDamage(damage);
+                Health enemyHealth = SelectManager.Instance.Current.GetComponent<Health>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(damage);
+                }
             }
         }
     }
