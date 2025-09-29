@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bea9adbe89f4c0ba092faa66d57502, type: 3}
-  m_Name: Defend
+  m_Script: {fileID: 11500000, guid: e718c13633eff45639854235282bbff9, type: 3}
+  m_Name: Lose1
   m_EditorClassIdentifier: 
-  cardName: Defend
-  type: 1
-  power: 5
-  cost: 1
-  description: Gain 5 block.
-  upgradePowerBonus: 2
-  upgradedDescription: Stronger effect.
+  effectType: 1
+  description: Lose 1 Power
+  amount: 1
