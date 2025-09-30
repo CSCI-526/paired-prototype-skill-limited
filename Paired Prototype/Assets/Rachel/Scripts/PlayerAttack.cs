@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
             yield return null;
         }
 
-        DamageInit.I.Show(damage, transform.position + Vector3.up * 90.0f + Vector3.right * 30.0f); ;
+        DamageInit.I.Show(damage, transform.position + Vector3.up * 90.0f + Vector3.right * 30.0f);
 
         t = 0;
         while (t < 1f)
