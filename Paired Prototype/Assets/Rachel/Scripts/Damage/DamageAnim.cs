@@ -35,8 +35,4 @@ public class DamageAnim : MonoBehaviour
 
         if (t >= lifetime) Destroy(gameObject);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8121d3332441f60867f27cb6fd953299c9939ef6

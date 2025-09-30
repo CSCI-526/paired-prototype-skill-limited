@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ButtonActions : MonoBehaviour
 {
-<<<<<<< HEAD
-    public bool testMode = false; // Toggle in Inspector to skip enemy attacks during testing
-=======
     private bool isTurnRunning = false;
     public bool testMode = true; // Toggle in Inspector to skip enemy attacks during testing
->>>>>>> 8121d3332441f60867f27cb6fd953299c9939ef6
+
     public int cardsPerHand = 3;
     [Header("Scenes")] public string rewardSceneName = "CardRewardScene";
 
@@ -96,7 +93,6 @@ public class ButtonActions : MonoBehaviour
             else
             {
                 // Fallback to temp player attack if no cards
-                PlayerAttack p_atk = player.GetComponent<PlayerAttack>();
                 p_atk.Attack();
                 yield return new WaitForSeconds(0.5f);
             }
@@ -126,27 +122,11 @@ public class ButtonActions : MonoBehaviour
         var player = GameObject.FindGameObjectWithTag("Player");
         var playerHealth = player != null ? player.GetComponent<Health>() : null;
 
-<<<<<<< HEAD
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         StartCoroutine(AllEnemiesAttack());
-
-=======
-        foreach (var e in enemies)
-        {
-            if (!e.activeInHierarchy) continue;
-            EnemyAttack atk = e.GetComponent<EnemyAttack>();
-            if (atk != null && !testMode)
-            {
-                atk.Attack();
-                yield return new WaitForSeconds(0.5f);
-            }
-        }
-        
         StartCoroutine(CheckAllEnemiesDead());
-        isTurnRunning = false;
-        
->>>>>>> 8121d3332441f60867f27cb6fd953299c9939ef6
+
         // Start next turn: reset blocks etc.
         if (TurnManager.Instance != null) TurnManager.Instance.NextTurn();
 
