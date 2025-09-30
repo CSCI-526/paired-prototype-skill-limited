@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+<<<<<<< HEAD
     }
 
     private IEnumerator AttackLunge(Transform transform)
@@ -37,7 +38,33 @@ public class PlayerAttack : MonoBehaviour
             player.transform.localPosition = Vector3.Lerp(forward, start, t);
             yield return null;
         }
+=======
+>>>>>>> 8121d3332441f60867f27cb6fd953299c9939ef6
     }
+
+    private IEnumerator AttackLunge(Transform transform)
+    {
+        Vector3 start = player.transform.localPosition;
+        Vector3 forward = start + new Vector3(40.0f, 0, 0);
+
+        float t = 0;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 5;
+            player.transform.localPosition = Vector3.Lerp(start, forward, t);
+            yield return null;
+        }
+
+        DamageInit.I.Show(damage, transform.position + Vector3.up * 90.0f + Vector3.right * 30.0f);
+
+        t = 0;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 5;
+            player.transform.localPosition = Vector3.Lerp(forward, start, t);
+            yield return null;
+        }
+    }    
 
     public void Attack()
     {

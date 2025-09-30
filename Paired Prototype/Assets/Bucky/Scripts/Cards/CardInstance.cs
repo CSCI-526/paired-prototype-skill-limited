@@ -12,6 +12,14 @@ public class CardInstance
         effects.AddRange(data.baseEffects);
     }
 
+    // Build from explicit effects list (used for preview/clone scenarios)
+    public CardInstance(CardData data, IEnumerable<CardEffect> effectsOverride)
+    {
+        baseData = data;
+        effects = new List<CardEffect>();
+        if (effectsOverride != null) effects.AddRange(effectsOverride);
+    }
+
     public void Play(Health player, Health target)
     {
         if (TurnManager.Instance != null && TurnManager.Instance.IsPlayLocked) return;

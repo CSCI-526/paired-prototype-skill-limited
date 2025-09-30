@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonActions : MonoBehaviour
 {
+<<<<<<< HEAD
     public bool testMode = false; // Toggle in Inspector to skip enemy attacks during testing
+=======
+    private bool isTurnRunning = false;
+    public bool testMode = true; // Toggle in Inspector to skip enemy attacks during testing
+>>>>>>> 8121d3332441f60867f27cb6fd953299c9939ef6
     public int cardsPerHand = 3;
+    [Header("Scenes")] public string rewardSceneName = "CardRewardScene";
 
     public void OnPlayCardClick()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (isTurnRunning) return;
+        StartCoroutine(PlayAttackSeq());
+    }
+
+    private IEnumerator PlayAttackSeq()
+    {
+        isTurnRunning = true;
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        PlayerAttack p_atk = player.GetComponent<PlayerAttack>();
 
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         // Prefer selected hand card if available
         var selected = HandSelectionManager.Instance != null ? HandSelectionManager.Instance.Selected : null;
         if (selected != null)
@@ -83,6 +98,7 @@ public class ButtonActions : MonoBehaviour
                 // Fallback to temp player attack if no cards
                 PlayerAttack p_atk = player.GetComponent<PlayerAttack>();
                 p_atk.Attack();
+                yield return new WaitForSeconds(0.5f);
             }
         }
 
@@ -110,10 +126,27 @@ public class ButtonActions : MonoBehaviour
         var player = GameObject.FindGameObjectWithTag("Player");
         var playerHealth = player != null ? player.GetComponent<Health>() : null;
 
+<<<<<<< HEAD
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         StartCoroutine(AllEnemiesAttack());
 
+=======
+        foreach (var e in enemies)
+        {
+            if (!e.activeInHierarchy) continue;
+            EnemyAttack atk = e.GetComponent<EnemyAttack>();
+            if (atk != null && !testMode)
+            {
+                atk.Attack();
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+        
+        StartCoroutine(CheckAllEnemiesDead());
+        isTurnRunning = false;
+        
+>>>>>>> 8121d3332441f60867f27cb6fd953299c9939ef6
         // Start next turn: reset blocks etc.
         if (TurnManager.Instance != null) TurnManager.Instance.NextTurn();
 
@@ -182,7 +215,8 @@ public class ButtonActions : MonoBehaviour
             lm.NextLevel();
 
             //move onto next level
-            //unimplemented
+            if (!string.IsNullOrEmpty(rewardSceneName))
+                SceneManager.LoadScene(rewardSceneName);
         }
     }
 }

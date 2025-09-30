@@ -29,7 +29,11 @@ public class EnemyAttack : MonoBehaviour
             yield return null;
         }
 
+<<<<<<< HEAD
         Vector3 baseOffset = Vector3.up * 60f + Vector3.right * 150f;
+=======
+        Vector3 baseOffset = Vector3.up * 90f + Vector3.right * 150f;
+>>>>>>> 8121d3332441f60867f27cb6fd953299c9939ef6
         Vector3 randomOffset = new Vector3(Random.Range(-20f, 20f), Random.Range(-20f, 20f), 0f);
 
         DamageInit.I.Show(

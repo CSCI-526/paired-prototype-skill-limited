@@ -35,4 +35,8 @@ public class DamageInit : MonoBehaviour
         string text = "-" + amount;
         pop.Init(text, color ?? Color.red);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8121d3332441f60867f27cb6fd953299c9939ef6
