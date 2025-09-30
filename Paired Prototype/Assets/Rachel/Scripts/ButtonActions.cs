@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ButtonActions : MonoBehaviour
 {
     private bool isTurnRunning = false;
-    public bool testMode = true; // Toggle in Inspector to skip enemy attacks during testing
+    public bool testMode = false; // Toggle in Inspector to skip enemy attacks during testing
 
     public int cardsPerHand = 3;
     [Header("Scenes")] public string rewardSceneName = "CardRewardScene";
