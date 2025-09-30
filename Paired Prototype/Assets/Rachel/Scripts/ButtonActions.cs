@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonActions : MonoBehaviour
 {
-    public bool testMode = true; // Toggle in Inspector to skip enemy attacks during testing
+    public bool testMode = false; // Toggle in Inspector to skip enemy attacks during testing
     public int cardsPerHand = 3;
 
     public void OnPlayCardClick()
@@ -107,17 +107,12 @@ public class ButtonActions : MonoBehaviour
     {
         Debug.Log("[EndTurn] Clicked");
         // Enemies attack now (end of player turn)
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         var player = GameObject.FindGameObjectWithTag("Player");
         var playerHealth = player != null ? player.GetComponent<Health>() : null;
 
-        foreach (var e in enemies)
-        {
-            if (!e.activeInHierarchy) continue;
-            EnemyAttack atk = e.GetComponent<EnemyAttack>();
-            if (atk != null && !testMode)
-                atk.Attack();
-        }
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        StartCoroutine(AllEnemiesAttack());
 
         // Start next turn: reset blocks etc.
         if (TurnManager.Instance != null) TurnManager.Instance.NextTurn();
@@ -155,6 +150,23 @@ public class ButtonActions : MonoBehaviour
             {
                 // Use spawner to render these specific cards
                 handContainer.SpawnSpecific(picks);
+            }
+        }
+    }
+
+    private IEnumerator AllEnemiesAttack()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (var e in enemies)
+        {
+            //if (!e.activeInHierarchy) continue;
+            EnemyAttack atk = e.GetComponent<EnemyAttack>();
+            if (atk != null)
+            {
+                Debug.Log("[Enemy] Atacked");
+                atk.Attack();
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }
