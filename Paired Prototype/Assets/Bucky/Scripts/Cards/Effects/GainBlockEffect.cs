@@ -15,4 +15,14 @@ public class GainBlockEffect : CardEffect
     {
         player?.GainBlock(block);
     }
+
+    public override bool SupportsUpgrade => true;
+
+    public override CardEffect CreateUpgradedCopy()
+    {
+        var clone = ScriptableObject.Instantiate(this);
+        clone.block = Mathf.Max(1, block + 2);
+        clone.description = $"Gain {clone.block} block";
+        return clone;
+    }
 }

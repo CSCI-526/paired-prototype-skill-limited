@@ -12,4 +12,14 @@ public abstract class CardEffect : ScriptableObject
 
     // Execute in order when the card is played (wired to Rachel's systems)
     public abstract void Execute(Health player, Health target);
+
+    // Whether this effect knows how to produce an upgraded copy
+    public virtual bool SupportsUpgrade => false;
+
+    // Return a new ScriptableObject instance representing the upgraded version.
+    // Default: not supported -> return null.
+    public virtual CardEffect CreateUpgradedCopy()
+    {
+        return null;
+    }
 }

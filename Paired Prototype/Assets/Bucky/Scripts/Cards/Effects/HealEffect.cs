@@ -15,4 +15,14 @@ public class HealEffect : CardEffect
     {
         player?.Heal(amount);
     }
+
+    public override bool SupportsUpgrade => true;
+
+    public override CardEffect CreateUpgradedCopy()
+    {
+        var clone = ScriptableObject.Instantiate(this);
+        clone.amount = Mathf.Max(1, amount + 3);
+        clone.description = $"Heal {clone.amount} HP";
+        return clone;
+    }
 }

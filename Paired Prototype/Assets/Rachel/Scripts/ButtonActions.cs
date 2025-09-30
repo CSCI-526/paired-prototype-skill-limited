@@ -113,6 +113,9 @@ public class ButtonActions : MonoBehaviour
 
         //check if all enemies are dead
         StartCoroutine(CheckAllEnemiesDead());
+
+        // mark turn sequence finished so Play button can be used again
+        isTurnRunning = false;
     }
 
     public void OnEndTurnClick()
@@ -196,7 +199,32 @@ public class ButtonActions : MonoBehaviour
 
             //move onto next level
             if (!string.IsNullOrEmpty(rewardSceneName))
-                SceneManager.LoadScene(rewardSceneName);
+            {
+                // Only load if the scene is in Build Settings; otherwise log an error once
+                if (IsSceneInBuildSettings(rewardSceneName))
+                {
+                    SceneManager.LoadScene(rewardSceneName);
+                }
+                else
+                {
+                    Debug.LogError($"[Scene] '{rewardSceneName}' not in Build Settings. Add it via File -> Build Settings -> Scenes In Build.");
+                }
+            }
         }
+    }
+
+    private bool IsSceneInBuildSettings(string sceneName)
+    {
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        for (int i = 0; i < sceneCount; i++)
+        {
+            string path = UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex(i);
+            if (!string.IsNullOrEmpty(path))
+            {
+                var filename = System.IO.Path.GetFileNameWithoutExtension(path);
+                if (string.Equals(filename, sceneName)) return true;
+            }
+        }
+        return false;
     }
 }

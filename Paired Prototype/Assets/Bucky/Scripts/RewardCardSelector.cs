@@ -34,13 +34,18 @@ public class RewardCardSelector : MonoBehaviour
 
     public void ConfirmSelection()
     {
-        if (selectedCard == null)
+        // Prefer global hand selection so any CardSelectable works
+        GameObject chosen = selectedCard;
+        if (HandSelectionManager.Instance != null && HandSelectionManager.Instance.Current != null)
+            chosen = HandSelectionManager.Instance.Current.gameObject;
+
+        if (chosen == null)
         {
             Debug.Log("No card selected!");
             return;
         }
 
-        var opt = selectedCard.GetComponent<RewardOption>();
+        var opt = chosen.GetComponent<RewardOption>();
         if (opt == null)
         {
             Debug.LogWarning("[Reward] Selected object has no RewardOption; ignoring");
@@ -60,14 +65,34 @@ public class RewardCardSelector : MonoBehaviour
                 {
                     DeckService.Instance.AddNewCard(opt.newCardData);
                     Debug.Log($"[Reward] Added new card: {opt.newCardData.cardName}");
+                    // Detailed log
+                    var deckAfterAdd = DeckService.Instance.Deck != null ? DeckService.Instance.Deck.Count : 0;
+                    Debug.Log($"[Reward][Continue] New Card '{opt.newCardData.cardName}' added. Deck size now {deckAfterAdd}. Effects:");
+                    if (opt.newCardData.baseEffects != null)
+                    {
+                        foreach (var e in opt.newCardData.baseEffects)
+                        {
+                            if (e == null) continue;
+                            Debug.Log($"  - {e.description}");
+                        }
+                    }
                 }
                 break;
             case RewardOption.RewardType.Upgrade:
                 if (opt.originalInstance != null && opt.upgradedEffectPreview != null)
                 {
-                    // Apply upgrade by adding the upgraded positive/less-negative effect
-                    DeckService.Instance.ApplyUpgrade(opt.originalInstance, opt.upgradedEffectPreview);
-                    Debug.Log($"[Reward] Upgraded {opt.originalInstance.GetDisplayName()} with {opt.upgradedEffectPreview.name}");
+                    // Replace the original effect with the upgraded one
+                    DeckService.Instance.ApplyUpgradeReplace(opt.originalInstance, opt.oldEffectInOriginal, opt.upgradedEffectPreview);
+                    Debug.Log($"[Reward] Upgraded {opt.originalInstance.GetDisplayName()} with {opt.upgradedEffectPreview.name} (replaced)");
+                    // Detailed log with before/after
+                    string before = opt.oldEffectInOriginal != null ? opt.oldEffectInOriginal.description : "(unknown)";
+                    string after = opt.upgradedEffectPreview.description;
+                    Debug.Log($"[Reward][Continue] Upgrade applied to '{opt.originalInstance.GetDisplayName()}': '{before}' -> '{after}'. Current effects:");
+                    foreach (var e in opt.originalInstance.Effects)
+                    {
+                        if (e == null) continue;
+                        Debug.Log($"  - {e.description}");
+                    }
                 }
                 break;
         }

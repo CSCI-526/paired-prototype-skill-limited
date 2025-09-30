@@ -26,6 +26,16 @@ public class DealDamageAllEnemiesEffect : CardEffect
             }
         }
     }
+
+    public override bool SupportsUpgrade => true;
+
+    public override CardEffect CreateUpgradedCopy()
+    {
+        var clone = ScriptableObject.Instantiate(this);
+        clone.damage = Mathf.Max(0, damage + 2);
+        clone.description = $"Deal {clone.damage} damage to all enemies";
+        return clone;
+    }
 }
 
 

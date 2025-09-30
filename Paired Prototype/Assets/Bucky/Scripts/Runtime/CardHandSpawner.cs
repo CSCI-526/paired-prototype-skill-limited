@@ -20,50 +20,46 @@ public class CardHandSpawner : MonoBehaviour
             return;
         }
 
+        // If explicit cards provided, render those
         var sourceCards = cardsToShow;
-        if ((sourceCards == null || sourceCards.Length == 0) && DeckService.Instance != null)
+        if (sourceCards != null && sourceCards.Length > 0)
         {
-            // Show first few from deck for demo
-            // Convert to CardData for display only
-            var deck = DeckService.Instance.Deck;
-            Debug.Log($"[Deck] Deck count: {deck.Count}");
-            int n = Mathf.Min(3, deck.Count);
-            sourceCards = new CardData[n];
-            for (int i = 0; i < n; i++) sourceCards[i] = deck[i].baseData;
-        }
-
-        if (sourceCards == null || sourceCards.Length == 0)
-        {
-            Debug.LogWarning("CardHandSpawner: No cards to show. Assign Cards To Show or ensure Deck has cards.");
+            foreach (var cd in sourceCards)
+            {
+                var go = Instantiate(cardPrefab, container);
+                go.name = cd != null ? $"Card_{cd.cardName}" : "Card";
+                var le = go.GetComponent<LayoutElement>();
+                if (le == null) le = go.AddComponent<LayoutElement>();
+                le.preferredWidth = 260f;
+                le.preferredHeight = 360f;
+                var rt = go.transform as RectTransform;
+                if (rt != null) rt.localScale = Vector3.one;
+                var display = go.GetComponent<CardDisplay>();
+                var instance = new CardInstance(cd);
+                display.Init(instance);
+                var selectable = go.GetComponent<CardSelectable>();
+                if (selectable == null) selectable = go.AddComponent<CardSelectable>();
+                selectable.Initialize(instance);
+            }
             return;
         }
 
-        foreach (var cd in sourceCards)
+        // Otherwise, draw from the actual deck instances so upgrades are reflected immediately
+        if (DeckService.Instance != null)
         {
-            var go = Instantiate(cardPrefab, container);
-            go.name = cd != null ? $"Card_{cd.cardName}" : "Card";
-            // Ensure layout sizing works with HorizontalLayoutGroup/Grid
-            var le = go.GetComponent<LayoutElement>();
-            if (le == null) le = go.AddComponent<LayoutElement>();
-            le.preferredWidth = 260f;
-            le.preferredHeight = 360f;
-
-            // Defensive: ensure RectTransform scale is sane
-            var rt = go.transform as RectTransform;
-            if (rt != null)
+            var deck = DeckService.Instance.Deck;
+            if (deck == null || deck.Count == 0)
             {
-                rt.localScale = Vector3.one;
+                Debug.LogWarning("CardHandSpawner: Deck empty; nothing to show.");
+                return;
             }
-            var display = go.GetComponent<CardDisplay>();
-            // Build a temporary instance purely for display
-            var instance = new CardInstance(cd);
-            display.Init(instance);
-
-            // Make this card selectable in hand
-            var selectable = go.GetComponent<CardSelectable>();
-            if (selectable == null) selectable = go.AddComponent<CardSelectable>();
-            selectable.Initialize(instance);
+            Debug.Log($"[Deck] Initial hand draw from runtime deck. Deck count: {deck.Count}");
+            var picks = DeckService.Instance.PickRandomFromDeck(3);
+            SpawnSpecific(picks);
+            return;
         }
+
+        Debug.LogWarning("CardHandSpawner: No cards to show. Assign Cards To Show or ensure Deck has cards.");
     }
 
     // Spawn a provided set of CardInstances (e.g., from DeckService.PickRandomFromDeck)

@@ -19,4 +19,14 @@ public class DealDamageEffect : CardEffect
         int final = Mathf.Max(0, damage + bonus);
         target?.TakeDamage(final);
     }
+
+    public override bool SupportsUpgrade => true;
+
+    public override CardEffect CreateUpgradedCopy()
+    {
+        var clone = ScriptableObject.Instantiate(this);
+        clone.damage = Mathf.Max(0, damage + 2);
+        clone.description = $"Deal {clone.damage} damage to an enemy";
+        return clone;
+    }
 }

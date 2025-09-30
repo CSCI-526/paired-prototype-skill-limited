@@ -36,6 +36,13 @@ public class DeckService : MonoBehaviour
             target.AddEffect(positiveEffect);
     }
 
+    // Reward: replace an existing effect with an upgraded one
+    public void ApplyUpgradeReplace(CardInstance target, CardEffect oldEffect, CardEffect upgradedEffect)
+    {
+        if (target == null || upgradedEffect == null) return;
+        target.ReplaceEffect(oldEffect, upgradedEffect);
+    }
+
     // Round end: maybe curse a random card by adding a negative effect
     public void MaybeApplyRandomCurse(CardEffect negativeEffect)
     {

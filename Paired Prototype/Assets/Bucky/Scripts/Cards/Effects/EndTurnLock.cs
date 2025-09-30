@@ -14,4 +14,7 @@ public class EndTurnLockEffect : CardEffect
         if (TurnManager.Instance != null)
             TurnManager.Instance.LockPlayForThisTurn();
     }
+
+    // Not upgradable: qualitative effect
+    public override bool SupportsUpgrade => false;
 }

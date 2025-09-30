@@ -15,4 +15,15 @@ public class SelfDamageEffect : CardEffect
     {
         player?.TakeDamage(damage);
     }
+
+    public override bool SupportsUpgrade => true;
+
+    public override CardEffect CreateUpgradedCopy()
+    {
+        // Upgrading a negative effect makes it less punishing
+        var clone = ScriptableObject.Instantiate(this);
+        clone.damage = Mathf.Max(0, damage - 2);
+        clone.description = $"Deal {clone.damage} damage to yourself";
+        return clone;
+    }
 }

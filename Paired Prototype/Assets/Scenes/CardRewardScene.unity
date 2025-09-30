@@ -391,6 +391,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1018808606}
+  - {fileID: 1826745558}
   m_Father: {fileID: 1583916354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -442,10 +443,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 4fdc46352ae3745d8a9c966aa6913be8, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
-        m_Mode: 5
+      - m_Target: {fileID: 1826745557}
+        m_TargetAssemblyTypeName: RewardCardSelector, Assembly-CSharp
+        m_MethodName: ConfirmSelection
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1625,6 +1626,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94b4a5202763e4bfdaf87ec0b321a945, type: 2}
   positiveMultiplier: 1.5
   negativeMultiplier: 0.5
+  preferredCardWidth: 240
+  preferredCardHeight: 360
+  cardLocalScale: {x: 1, y: 1, z: 1}
+  baseNameFontSize: 24
+  baseDescFontSize: 16
+  textPadding: 20
+  nameSectionHeightRatio: 0.25
+  descSectionHeightRatio: 0.25
 --- !u!4 &1819950171
 Transform:
   m_ObjectHideFlags: 0
@@ -1640,6 +1649,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1826745556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1826745558}
+  - component: {fileID: 1826745557}
+  m_Layer: 5
+  m_Name: RewardSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1826745557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826745556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdc46352ae3745d8a9c966aa6913be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionSceneName: ActionScene
+--- !u!224 &1826745558
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826745556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 306227865}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1891608549 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4386591478020460608, guid: 11ff79525f6434cd5b7fe742a303cb20, type: 3}
@@ -1924,7 +1982,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061516862}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 544.8594, y: 257.45572, z: -9.0804825}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
