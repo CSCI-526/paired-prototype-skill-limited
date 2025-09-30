@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonActions : MonoBehaviour
 {
     private bool isTurnRunning = false;
     public bool testMode = true; // Toggle in Inspector to skip enemy attacks during testing
     public int cardsPerHand = 3;
+    [Header("Scenes")] public string rewardSceneName = "CardRewardScene";
 
     public void OnPlayCardClick()
     {
@@ -186,7 +188,8 @@ public class ButtonActions : MonoBehaviour
             lm.NextLevel();
 
             //move onto next level
-            //unimplemented
+            if (!string.IsNullOrEmpty(rewardSceneName))
+                SceneManager.LoadScene(rewardSceneName);
         }
     }
 }

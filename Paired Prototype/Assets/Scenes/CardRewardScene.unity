@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 306227868}
   - component: {fileID: 306227867}
   - component: {fileID: 306227866}
+  - component: {fileID: 306227869}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -441,16 +442,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583916355}
-        m_TargetAssemblyTypeName: RewardCardSelector, Assembly-CSharp
-        m_MethodName: ConfirmSelection
-        m_Mode: 1
+      - m_Target: {fileID: 11500000, guid: 4fdc46352ae3745d8a9c966aa6913be8, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+        m_MethodName: set_name
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: RewardCardSelector.ConfirmSelection
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &306227867
@@ -491,6 +492,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306227864}
   m_CullTransparentMesh: 1
+--- !u!114 &306227869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306227864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdc46352ae3745d8a9c966aa6913be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionSceneName: ActionScene
 --- !u!1 &831286342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,6 +1358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdc46352ae3745d8a9c966aa6913be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionSceneName: ActionScene
 --- !u!1 &1753013498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,6 +1586,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1819950169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819950171}
+  - component: {fileID: 1819950170}
+  m_Layer: 0
+  m_Name: RewardFlowController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1819950170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819950169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c1edefabefd4f0bac2b2630b5f25d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newCardArea: {fileID: 831286343}
+  upgradeArea: {fileID: 1753013499}
+  cardPrefab: {fileID: 4386591478020460608, guid: 11ff79525f6434cd5b7fe742a303cb20, type: 3}
+  continueButton: {fileID: 306227866}
+  newCardPool:
+  - {fileID: 11400000, guid: 6e115a91760a64bf6962b8e6598e479f, type: 2}
+  - {fileID: 11400000, guid: bc6f3f58910294526ad8acee12b647cd, type: 2}
+  - {fileID: 11400000, guid: 94b4a5202763e4bfdaf87ec0b321a945, type: 2}
+  positiveMultiplier: 1.5
+  negativeMultiplier: 0.5
+--- !u!4 &1819950171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819950169}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 544.8594, y: 257.45572, z: -9.0804825}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1891608549 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4386591478020460608, guid: 11ff79525f6434cd5b7fe742a303cb20, type: 3}
@@ -1817,6 +1886,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2061516862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2061516864}
+  - component: {fileID: 2061516863}
+  m_Layer: 0
+  m_Name: RewardSelectionBinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2061516863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061516862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce5cfb1ba688a4165a68eb63b910e97b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  continueButton: {fileID: 306227866}
+--- !u!4 &2061516864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061516862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 544.8594, y: 257.45572, z: -9.0804825}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2064300961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1929,3 +2043,5 @@ SceneRoots:
   - {fileID: 1815051989}
   - {fileID: 1583916354}
   - {fileID: 1803993156}
+  - {fileID: 1819950171}
+  - {fileID: 2061516864}
