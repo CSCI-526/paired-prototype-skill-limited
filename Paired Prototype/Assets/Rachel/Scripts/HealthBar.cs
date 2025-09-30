@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
     public Image barFill; // assign in Inspector
+    public TextMeshProUGUI healthText;
+    public bool isPlayer;
 
     public void SetHealth(int current, int max)
     {
@@ -26,6 +29,11 @@ public class HealthBar : MonoBehaviour
         else
         {
             barFill.color = Color.red; // <= 20%
+        }
+
+        if (isPlayer)
+        {
+            healthText.text = $"{current} / {max}";
         }
     }
 }
