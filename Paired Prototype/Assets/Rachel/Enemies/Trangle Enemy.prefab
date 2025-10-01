@@ -207,6 +207,8 @@ MonoBehaviour:
   maxHealth: 20
   currentHealth: 0
   player: 0
+  currentBlock: 0
+  power: 0
 --- !u!114 &2666394467628510883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barFill: {fileID: 7835046362623855658}
+  healthText: {fileID: 0}
+  isPlayer: 0
 --- !u!61 &2398739933281689452
 BoxCollider2D:
   m_ObjectHideFlags: 0

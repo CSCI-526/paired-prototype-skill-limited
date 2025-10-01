@@ -10,6 +10,10 @@ public class Health : MonoBehaviour
 
     public bool player = false;
 
+    // Temporary block and power mechanics to support cards
+    public int currentBlock = 0;
+    public int power = 0;
+
     private HealthBar healthBar;
 
     // Start is called before the first frame update
@@ -23,6 +27,14 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        // Absorb with block first
+        if (currentBlock > 0 && damage > 0)
+        {
+            int absorbed = Mathf.Min(currentBlock, damage);
+            currentBlock -= absorbed;
+            damage -= absorbed;
+        }
+
         currentHealth -= damage;
 
         UpdateBar();
@@ -44,6 +56,17 @@ public class Health : MonoBehaviour
         UpdateBar();
     }
 
+    public void GainBlock(int block)
+    {
+        if (block <= 0) return;
+        currentBlock += block;
+    }
+
+    public void GainPower(int amount)
+    {
+        power += amount;
+    }
+
     private void UpdateBar()
     {
         if (healthBar != null)
@@ -55,6 +78,10 @@ public class Health : MonoBehaviour
         //enemy death
         if (!player)
         {
+            if (SelectManager.Instance.Current != null && SelectManager.Instance.Current.gameObject == this.gameObject)
+            {
+                SelectManager.Instance?.ClearSelection();
+            }
             Destroy(gameObject);
         }
 
