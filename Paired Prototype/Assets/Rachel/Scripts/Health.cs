@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -87,7 +88,20 @@ public class Health : MonoBehaviour
         //player death
         else
         {
+            var lm = FindObjectOfType<LevelManager>();
+            int levelsBeaten = 0;
+            if (lm != null)
+            {
+                // levels beaten = last fully cleared level = currLevel - 1
+                levelsBeaten = Mathf.Max(0, lm.currLevel - 1);
+            }
 
+            PlayerPrefs.SetInt("LastRunLevelsBeaten", levelsBeaten);
+            int best = PlayerPrefs.GetInt("BestLevelsBeaten", 0);
+            if (levelsBeaten > best) PlayerPrefs.SetInt("BestLevelsBeaten", levelsBeaten);
+            PlayerPrefs.Save();
+
+           LevelLoader.Instance?.LoadGameOver();
         }
     }
 }

@@ -191,25 +191,9 @@ public class ButtonActions : MonoBehaviour
     {
         yield return null;
 
-        if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            //change level UI
-            var lm = FindObjectOfType<LevelManager>();
-            lm.NextLevel();
-
-            //move onto next level
-            if (!string.IsNullOrEmpty(rewardSceneName))
-            {
-                // Only load if the scene is in Build Settings; otherwise log an error once
-                if (IsSceneInBuildSettings(rewardSceneName))
-                {
-                    SceneManager.LoadScene(rewardSceneName);
-                }
-                else
-                {
-                    Debug.LogError($"[Scene] '{rewardSceneName}' not in Build Settings. Add it via File -> Build Settings -> Scenes In Build.");
-                }
-            }
+            LevelLoader.Instance?.LoadReward();
         }
     }
 
