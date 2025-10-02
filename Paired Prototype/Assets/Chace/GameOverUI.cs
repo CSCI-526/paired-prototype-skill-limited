@@ -6,7 +6,7 @@ public class GameOverUI : MonoBehaviour
 {
     public TMP_Text titleText;  
     public TMP_Text infoText;
-    public string mainMenuSceneName = "MainMenu";
+    public string mainMenuSceneName = "MainMenuScene";
 
     void Start()
     {

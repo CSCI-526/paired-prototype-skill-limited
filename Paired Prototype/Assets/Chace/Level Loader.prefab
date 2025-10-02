@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b4e6008c65904caa8a85d40dd49b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 0}
+  transition: {fileID: 6225588902342028545}
   transitionTime: 1
   actionScene: ActionScene
   rewardScene: CardRewardScene

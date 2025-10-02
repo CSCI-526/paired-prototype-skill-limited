@@ -10,12 +10,13 @@ public class MainMenuUI : MonoBehaviour
     public GameObject selectPanel;
 
     [Header("Selection UI")]
-    public Transform scrollContent;        // Content of a Scroll View
-    public TMP_Text counterText;           // "Selected: N/5"
-    public Button startButton;             // Disabled until N==5
+    public Transform scrollContent;      // ScrollView/Viewport/Content
+    public TMP_Text counterText;         // "Selected: N/5"
+    public Button startButton;           // disabled until N==5
 
-    [Header("Available Cards")]
-    public List<GameObject> cardPrefabs;   // Drag all your Card prefabs here
+    [Header("Card Sources & Prefab")]
+    public List<CardData> cardDatas;     // Drag CardData assets here (e.g., AOE6, Defend-LosePower...)
+    public GameObject cardPrefab;        // Use the SAME prefab as Reward scene (has CardDisplay)
 
     [Header("Settings")]
     public int deckSize = 5;
@@ -25,7 +26,11 @@ public class MainMenuUI : MonoBehaviour
 
     void Start()
     {
-        ShowTitle();
+        // Title first
+        titlePanel.SetActive(true);
+        selectPanel.SetActive(false);
+
+        // Prebuild list so selection panel shows immediately after click
         BuildList();
         UpdateCounterAndButton();
     }
@@ -40,18 +45,15 @@ public class MainMenuUI : MonoBehaviour
     {
         if (selected.Count != deckSize) return;
 
-        var names = new List<string>(deckSize);
+        var chosen = new List<CardData>(deckSize);
         foreach (var idx in selected)
-            names.Add(cardPrefabs[idx].name);
-        SelectedDeck.Set(names);
+            chosen.Add(cardDatas[idx]);
 
+        // Pass the chosen CardData list to your run (use the static holder you already added)
+        SelectedDeck.Set(chosen);
+
+        // Go to gameplay via your transition
         LevelLoader.Instance?.LoadAction();
-    }
-
-    void ShowTitle()
-    {
-        titlePanel.SetActive(true);
-        selectPanel.SetActive(false);
     }
 
     void BuildList()
@@ -59,11 +61,28 @@ public class MainMenuUI : MonoBehaviour
         foreach (Transform c in scrollContent) Destroy(c.gameObject);
         spawned.Clear();
 
-        for (int i = 0; i < cardPrefabs.Count; i++)
+        if (cardDatas == null || cardDatas.Count == 0 || cardPrefab == null) return;
+
+        for (int i = 0; i < cardDatas.Count; i++)
         {
-            var item = Instantiate(cardPrefabs[i], scrollContent);
+            var data = cardDatas[i];
+            // Build a runtime CardInstance from CardData (matches how Reward scene does previews)
+            var inst = new CardInstance(data);
+
+            var item = Instantiate(cardPrefab, scrollContent);
+            item.name = data != null ? $"Menu_{data.cardName}" : "Menu_Card";
             spawned.Add(item);
 
+            // Use the real in-game binder so text & colors match gameplay
+            var display = item.GetComponent<CardDisplay>();
+            if (display != null) display.Init(inst);
+
+            // Make it clickable for selection
+            var selectable = item.GetComponent<CardSelectable>();
+            if (selectable == null) selectable = item.AddComponent<CardSelectable>();
+            selectable.Initialize(inst);
+
+            // Basic selection visuals using a Button (for your existing select logic)
             var btn = item.GetComponent<Button>();
             if (btn == null) btn = item.AddComponent<Button>();
 
@@ -97,14 +116,15 @@ public class MainMenuUI : MonoBehaviour
 
     void SetItemVisual(GameObject item, bool isSelected)
     {
+        // Light, non-invasive highlight for the menu
         var t = item.transform;
-        t.localScale = isSelected ? new Vector3(1.08f, 1.08f, 1f) : Vector3.one;
+        t.localScale = isSelected ? new Vector3(1.06f, 1.06f, 1f) : Vector3.one;
 
         var img = item.GetComponent<Image>();
         if (img != null)
         {
             var c = img.color;
-            c.a = isSelected ? 1f : 0.8f;
+            c.a = isSelected ? 1f : 0.85f;
             img.color = c;
         }
     }

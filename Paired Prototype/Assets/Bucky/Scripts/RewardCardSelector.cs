@@ -96,9 +96,7 @@ public class RewardCardSelector : MonoBehaviour
                 }
                 break;
         }
-
-        // Return to main action scene
-        if (!string.IsNullOrEmpty(actionSceneName))
-            UnityEngine.SceneManagement.SceneManager.LoadScene(actionSceneName);
+        RunSignals.AfterReward = true;
+        LevelLoader.Instance?.LoadAction();
     }
 }

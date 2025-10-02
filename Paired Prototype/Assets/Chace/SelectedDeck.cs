@@ -1,12 +1,18 @@
+// SelectedDeck.cs
 using System.Collections.Generic;
 
 public static class SelectedDeck
 {
-    public static readonly List<string> SelectedCardNames = new List<string>(5);
+    public static readonly List<CardData> SelectedCards = new List<CardData>(5);
 
-    public static void Set(IEnumerable<string> names)
+    public static void Set(IEnumerable<CardData> cards)
     {
-        SelectedCardNames.Clear();
-        SelectedCardNames.AddRange(names);
+        SelectedCards.Clear();
+        SelectedCards.AddRange(cards);
+    }
+
+    public static void Clear()
+    {
+        SelectedCards.Clear();
     }
 }

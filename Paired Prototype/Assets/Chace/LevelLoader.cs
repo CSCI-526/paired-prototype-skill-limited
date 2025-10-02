@@ -7,14 +7,14 @@ public class LevelLoader : MonoBehaviour
     public static LevelLoader Instance;
 
     [Header("UI Transition")]
-    public Animator transition;       // trigger name must be "Start"
-    public float transitionTime = 1f; // seconds
+    public Animator transition;        // Animator with a Trigger "Start" that plays your wipe
+    public float transitionTime = 1f;  // seconds
 
     [Header("Scene Names")]
-    public string actionScene;
-    public string rewardScene;
-    public string gameOverScene;
-    public string mainMenuScene;
+    public string mainMenuScene   = "MainMenu";
+    public string actionScene     = "ActionScene";
+    public string rewardScene     = "CardRewardScene";
+    public string gameOverScene   = "GameOver";
 
     bool isLoading;
 
@@ -22,13 +22,13 @@ public class LevelLoader : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
-        DontDestroyOnLoad(gameObject); // keep the wipe across scenes
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadAction()     => LoadScene(actionScene);
-    public void LoadReward()     => LoadScene(rewardScene);
-    public void LoadGameOver()   => LoadScene(gameOverScene);
-    public void LoadMainMenu()   => LoadScene(mainMenuScene);
+    public void LoadMainMenu() => LoadScene(mainMenuScene);
+    public void LoadAction()   => LoadScene(actionScene);
+    public void LoadReward()   => LoadScene(rewardScene);
+    public void LoadGameOver() => LoadScene(gameOverScene);
 
     public void LoadScene(string sceneName)
     {
@@ -36,11 +36,19 @@ public class LevelLoader : MonoBehaviour
     }
 
     IEnumerator LoadRoutine(string sceneName)
-    {
-        isLoading = true;
-        if (transition) transition.SetTrigger("Start");
-        yield return new WaitForSecondsRealtime(transitionTime);
-        SceneManager.LoadScene(sceneName);
-        isLoading = false;
-    }
+{
+    isLoading = true;
+
+    if (transition) transition.SetTrigger("Start");           // fade to black
+    yield return new WaitForSecondsRealtime(transitionTime);  // match Circle_Start length
+
+    UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    yield return null; // let one frame render under the overlay
+
+    if (transition) transition.SetTrigger("End");             // fade back to clear
+    // (optional) yield return new WaitForSecondsRealtime(transitionTime);
+
+    isLoading = false;
+}
+
 }
