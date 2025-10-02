@@ -10,13 +10,13 @@ public class MainMenuUI : MonoBehaviour
     public GameObject selectPanel;
 
     [Header("Selection UI")]
-    public Transform scrollContent;      // ScrollView/Viewport/Content
-    public TMP_Text counterText;         // "Selected: N/5"
-    public Button startButton;           // disabled until N==5
+    public Transform scrollContent;     
+    public TMP_Text counterText;        
+    public Button startButton;           
 
     [Header("Card Sources & Prefab")]
-    public List<CardData> cardDatas;     // Drag CardData assets here (e.g., AOE6, Defend-LosePower...)
-    public GameObject cardPrefab;        // Use the SAME prefab as Reward scene (has CardDisplay)
+    public List<CardData> cardDatas;     
+    public GameObject cardPrefab;        
 
     [Header("Settings")]
     public int deckSize = 5;
@@ -26,11 +26,9 @@ public class MainMenuUI : MonoBehaviour
 
     void Start()
     {
-        // Title first
         titlePanel.SetActive(true);
         selectPanel.SetActive(false);
 
-        // Prebuild list so selection panel shows immediately after click
         BuildList();
         UpdateCounterAndButton();
     }
@@ -48,11 +46,7 @@ public class MainMenuUI : MonoBehaviour
         var chosen = new List<CardData>(deckSize);
         foreach (var idx in selected)
             chosen.Add(cardDatas[idx]);
-
-        // Pass the chosen CardData list to your run (use the static holder you already added)
         SelectedDeck.Set(chosen);
-
-        // Go to gameplay via your transition
         LevelLoader.Instance?.LoadAction();
     }
 
@@ -66,7 +60,6 @@ public class MainMenuUI : MonoBehaviour
         for (int i = 0; i < cardDatas.Count; i++)
         {
             var data = cardDatas[i];
-            // Build a runtime CardInstance from CardData (matches how Reward scene does previews)
             var inst = new CardInstance(data);
 
             var item = Instantiate(cardPrefab, scrollContent);
@@ -82,7 +75,6 @@ public class MainMenuUI : MonoBehaviour
             if (selectable == null) selectable = item.AddComponent<CardSelectable>();
             selectable.Initialize(inst);
 
-            // Basic selection visuals using a Button (for your existing select logic)
             var btn = item.GetComponent<Button>();
             if (btn == null) btn = item.AddComponent<Button>();
 

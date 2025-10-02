@@ -65,7 +65,6 @@ public class EnemyWaveManager : MonoBehaviour
         SpawnWaveFromProgress();
     }
 
-    // Spawns using current persistent state (no extra upgrade)
     public void SpawnWaveFromProgress()
     {
         if (enemyPrefabs == null || enemyPrefabs.Count == 0)
@@ -79,7 +78,6 @@ public class EnemyWaveManager : MonoBehaviour
             return;
         }
 
-        // --- FIX 1: Level 1 must have exactly 1 enemy ---
         int count = (RunProgress.Level <= 1)
             ? 1
             : Mathf.Clamp(RunProgress.EnemyCount, 1, maxEnemies);
@@ -90,7 +88,6 @@ public class EnemyWaveManager : MonoBehaviour
             var p = spawnPoints[i % spawnPoints.Length];
             Vector3 pos = p.position;
 
-            // --- FIX 2: Prevent perfect overlap when wrapping around spawn points ---
             if (i >= spawnPoints.Length && overlapJitterRadius > 0f)
             {
                 // Small 2D jitter; adjust axis if your game uses XZ for 2D
