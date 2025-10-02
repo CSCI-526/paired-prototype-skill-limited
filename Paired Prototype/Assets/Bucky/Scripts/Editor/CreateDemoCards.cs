@@ -55,10 +55,10 @@ public static class CreateDemoCards
         );
 
         // 3) Gain 2 power, deal 10 to self
-        var pow2 = MakeEffect<GainPowerEffect>("Power2");
-        pow2.amount = 2;
-        pow2.description = $"Gain {pow2.amount} Power";
-        EditorUtility.SetDirty(pow2);
+        var pow1 = MakeEffect<GainPowerEffect>("Power1");
+        pow1.amount = 1;
+        pow1.description = $"Gain {pow1.amount} Power";
+        EditorUtility.SetDirty(pow1);
 
         var self10 = MakeEffect<SelfDamageEffect>("Self10");
         self10.damage = 10;
@@ -67,7 +67,7 @@ public static class CreateDemoCards
 
         MakeCard(
             name: "Rage",
-            effects: new CardEffect[] { pow2, self10 },
+            effects: new CardEffect[] { pow1, self10 },
             cardDescription: "Gain 2 Power. Then take 10 self-damage."
         );
 

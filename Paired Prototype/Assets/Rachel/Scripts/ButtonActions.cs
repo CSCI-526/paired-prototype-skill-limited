@@ -17,6 +17,72 @@ public class ButtonActions : MonoBehaviour
         StartCoroutine(PlayAttackSeq());
     }
 
+    public void OnReshuffleClick()
+    {
+        if (isTurnRunning) return;
+
+        Debug.Log("[Reshuffle] Clicked");
+
+        // Deal 10 self-damage to the player
+        var player = GameObject.FindGameObjectWithTag("Player");
+        var playerHealth = player != null ? player.GetComponent<Health>() : null;
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(10);
+            Debug.Log($"[Reshuffle] Player took 10 damage. HP={playerHealth.currentHealth} Block={playerHealth.currentBlock}");
+        }
+        else
+        {
+            Debug.LogWarning("[Reshuffle] Player Health not found.");
+        }
+
+        // Clear existing hand visuals
+        var handContainer = FindObjectOfType<CardHandSpawner>();
+        if (handContainer == null)
+        {
+            Debug.LogWarning("[Reshuffle] No CardHandSpawner found in scene.");
+        }
+        if (handContainer != null && handContainer.container != null)
+        {
+            for (int i = handContainer.container.childCount - 1; i >= 0; i--)
+            {
+                var child = handContainer.container.GetChild(i);
+                if (child == null) continue;
+                if (child.GetComponent<CardDisplay>() != null || child.GetComponent<CardSelectable>() != null)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+
+        // Optionally clear selection so no stale selection remains
+        if (HandSelectionManager.Instance != null)
+        {
+            HandSelectionManager.Instance.Clear();
+        }
+
+        // Draw a fresh hand from the current deck
+        if (DeckService.Instance != null)
+        {
+            var picks = DeckService.Instance.PickRandomFromDeck(cardsPerHand);
+            Debug.Log($"[Reshuffle] New hand ({picks.Count})");
+            for (int i = 0; i < picks.Count; i++)
+            {
+                var c = picks[i];
+                if (c == null) continue;
+                Debug.Log($"  [{i}] {c.GetDisplayName()}");
+            }
+            if (handContainer != null)
+            {
+                handContainer.SpawnSpecific(picks);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[Reshuffle] DeckService not available.");
+        }
+    }
+
     private IEnumerator PlayAttackSeq()
     {
         isTurnRunning = true;
@@ -191,9 +257,25 @@ public class ButtonActions : MonoBehaviour
     {
         yield return null;
 
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            LevelLoader.Instance?.LoadReward();
+            //change level UI
+            var lm = FindObjectOfType<LevelManager>();
+            lm.NextLevel();
+
+            //move onto next level
+            if (!string.IsNullOrEmpty(rewardSceneName))
+            {
+                // Only load if the scene is in Build Settings; otherwise log an error once
+                if (IsSceneInBuildSettings(rewardSceneName))
+                {
+                    SceneManager.LoadScene(rewardSceneName);
+                }
+                else
+                {
+                    Debug.LogError($"[Scene] '{rewardSceneName}' not in Build Settings. Add it via File -> Build Settings -> Scenes In Build.");
+                }
+            }
         }
     }
 
