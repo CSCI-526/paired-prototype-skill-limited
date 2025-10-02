@@ -46,8 +46,6 @@ public class LevelLoader : MonoBehaviour
     yield return null; // let one frame render under the overlay
 
     if (transition) transition.SetTrigger("End");             // fade back to clear
-    // (optional) yield return new WaitForSecondsRealtime(transitionTime);
-
     isLoading = false;
 }
 

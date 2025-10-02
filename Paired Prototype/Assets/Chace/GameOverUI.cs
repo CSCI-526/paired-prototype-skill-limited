@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;  // <-- important
+using TMPro;  
 
 public class GameOverUI : MonoBehaviour
 {
