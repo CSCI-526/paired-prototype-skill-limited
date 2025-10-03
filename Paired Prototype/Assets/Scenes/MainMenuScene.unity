@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641263, b: 0.57481724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1151,8 +1151,8 @@ MonoBehaviour:
   startButton: {fileID: 2010397439}
   cardDatas:
   - {fileID: 11400000, guid: b34af9051b9b54cabba5e0bf9d029c97, type: 2}
-  - {fileID: 11400000, guid: 6e115a91760a64bf6962b8e6598e479f, type: 2}
   - {fileID: 11400000, guid: 94b4a5202763e4bfdaf87ec0b321a945, type: 2}
+  - {fileID: 11400000, guid: 6e115a91760a64bf6962b8e6598e479f, type: 2}
   - {fileID: 11400000, guid: bc6f3f58910294526ad8acee12b647cd, type: 2}
   cardPrefab: {fileID: 4386591478020460608, guid: 11ff79525f6434cd5b7fe742a303cb20, type: 3}
   deckSize: 4

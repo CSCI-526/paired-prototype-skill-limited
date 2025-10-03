@@ -6,17 +6,20 @@ public static class CreateDemoCards
     [MenuItem("Cards/Create Demo Cards (1-4)")]
     public static void Create()
     {
-        string folder = "Assets/Bucky/ScriptableObjects/Cards";
+        string effectsFolder = "Assets/Bucky/ScriptableObjects/Effects";
+        string cardsFolder = "Assets/Bucky/ScriptableObjects/Cards";
         if (!AssetDatabase.IsValidFolder("Assets/Bucky/ScriptableObjects"))
             AssetDatabase.CreateFolder("Assets/Bucky", "ScriptableObjects");
-        if (!AssetDatabase.IsValidFolder(folder))
+        if (!AssetDatabase.IsValidFolder(effectsFolder))
+            AssetDatabase.CreateFolder("Assets/Bucky/ScriptableObjects", "Effects");
+        if (!AssetDatabase.IsValidFolder(cardsFolder))
             AssetDatabase.CreateFolder("Assets/Bucky/ScriptableObjects", "Cards");
 
         // Helpers to create effects
         T MakeEffect<T>(string name) where T : CardEffect
         {
             var e = ScriptableObject.CreateInstance<T>();
-            AssetDatabase.CreateAsset(e, $"{folder}/{name}.asset");
+            AssetDatabase.CreateAsset(e, $"{effectsFolder}/{name}.asset");
             return e;
         }
 
@@ -97,7 +100,7 @@ public static class CreateDemoCards
             c.cardName = name;
             c.baseEffects = effects;
             c.description = cardDescription;
-            AssetDatabase.CreateAsset(c, $"{folder}/{name}.asset");
+            AssetDatabase.CreateAsset(c, $"{cardsFolder}/{name}.asset");
             EditorUtility.SetDirty(c);
         }
     }

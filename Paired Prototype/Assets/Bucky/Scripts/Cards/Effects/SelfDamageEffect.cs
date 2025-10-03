@@ -13,7 +13,24 @@ public class SelfDamageEffect : CardEffect
 
     public override void Execute(Health player, Health target)
     {
-        player?.TakeDamage(damage);
+        if (player == null)
+        {
+            return;
+        }
+
+        var playerGO = UnityEngine.GameObject.FindGameObjectWithTag("Player");
+        if (playerGO != null)
+        {
+            var pa = playerGO.GetComponent<PlayerAttack>();
+            if (pa != null)
+            {
+                pa.DealSelfDamageWithAnimation(damage);
+                return;
+            }
+        }
+
+        // Fallback
+        player.TakeDamage(damage);
     }
 
     public override bool SupportsUpgrade => true;
