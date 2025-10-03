@@ -13,8 +13,23 @@ public class SkipTurnsEffect : CardEffect
 
     public override void Execute(Health player, Health target)
     {
-        if (TurnManager.Instance != null && turns > 0)
-            TurnManager.Instance.AddSkipTurns(turns);
+		// Prefer to immediately end the current and subsequent turns via UI flow
+		if (turns > 0)
+		{
+			var ui = GameObject.FindObjectOfType<ButtonActions>();
+			if (ui != null)
+			{
+				for (int i = 0; i < turns; i++)
+				{
+					ui.OnEndTurnClick();
+				}
+				return;
+			}
+		}
+
+		// Fallback: mark turns to be skipped by the turn manager
+		if (TurnManager.Instance != null && turns > 0)
+			TurnManager.Instance.AddSkipTurns(turns);
     }
 
     public override bool SupportsUpgrade => true;
