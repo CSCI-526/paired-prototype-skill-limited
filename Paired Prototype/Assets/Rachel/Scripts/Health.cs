@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        currentHealth = maxHealth;
+        currentHealth = GlobalVars.currPlayerHealth;
 
         healthBar = GetComponentInChildren<HealthBar>();
         UpdateBar();
@@ -38,6 +38,9 @@ public class Health : MonoBehaviour
 
         currentHealth -= damage;
 
+        if(player)
+            GlobalVars.currPlayerHealth = currentHealth;
+
         UpdateBar();
         if (currentHealth <= 0)
         {
@@ -52,7 +55,11 @@ public class Health : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
+
         }
+
+        if(player)
+            GlobalVars.currPlayerHealth = currentHealth;
 
         UpdateBar();
     }
@@ -98,6 +105,7 @@ public class Health : MonoBehaviour
                 levelsBeaten = Mathf.Max(0, lm.currLevel - 1);
             }
 
+            GlobalVars.currPlayerHealth = 100;
             PlayerPrefs.SetInt("LastRunLevelsBeaten", levelsBeaten);
             int best = PlayerPrefs.GetInt("BestLevelsBeaten", 0);
             if (levelsBeaten > best) PlayerPrefs.SetInt("BestLevelsBeaten", levelsBeaten);
