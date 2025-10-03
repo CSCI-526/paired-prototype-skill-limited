@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bea9adbe89f4c0ba092faa66d57502, type: 3}
+  m_Name: Cursed Wrath
+  m_EditorClassIdentifier: 
+  cardName: Cursed Wrath
+  rarity: 0
+  baseEffects: []
+  cursedEffects:
+  - {fileID: 11400000, guid: f1ac617a0d78d4d128a6e632e8152dd8, type: 2}
+  - {fileID: 11400000, guid: 5f74bbb4786cf45c18ce61fbf92b7101, type: 2}
+  purifiedEffects:
+  - {fileID: 11400000, guid: f1ac617a0d78d4d128a6e632e8152dd8, type: 2}
+  - {fileID: 11400000, guid: a6e04a15aea0f4190bda67e5b8a4db1c, type: 2}
+  blessedEffects:
+  - {fileID: 11400000, guid: a5e9c763bdf184dd3970f3c58cff2344, type: 2}
+  description: 

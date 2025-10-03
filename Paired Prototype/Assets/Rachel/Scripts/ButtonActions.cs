@@ -14,6 +14,12 @@ public class ButtonActions : MonoBehaviour
     public void OnPlayCardClick()
     {
         if (isTurnRunning) return;
+        if (TurnManager.Instance != null && TurnManager.Instance.IsPlayLocked)
+        {
+            Debug.Log("[Play] Turn is locked (skip or effect). End turn.");
+            OnEndTurnClick();
+            return;
+        }
         StartCoroutine(PlayAttackSeq());
     }
 

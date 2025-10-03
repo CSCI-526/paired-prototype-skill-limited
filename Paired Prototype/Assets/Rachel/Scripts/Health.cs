@@ -13,6 +13,7 @@ public class Health : MonoBehaviour
     // Temporary block and power mechanics to support cards
     public int currentBlock = 0;
     public int power = 0;
+    public bool blockDisabledThisTurn = false;
 
     private HealthBar healthBar;
 
@@ -59,6 +60,7 @@ public class Health : MonoBehaviour
     public void GainBlock(int block)
     {
         if (block <= 0) return;
+        if (blockDisabledThisTurn) return;
         currentBlock += block;
     }
 

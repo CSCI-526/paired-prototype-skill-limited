@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bea9adbe89f4c0ba092faa66d57502, type: 3}
+  m_Name: Cursed Bloodletting
+  m_EditorClassIdentifier: 
+  cardName: Cursed Bloodletting
+  rarity: 0
+  baseEffects: []
+  cursedEffects:
+  - {fileID: 11400000, guid: 64449858564dc4e13820c1d641713aca, type: 2}
+  - {fileID: 11400000, guid: db02391825de24fb4b47849a77c009ea, type: 2}
+  purifiedEffects:
+  - {fileID: 11400000, guid: 64a6b8bbd97f146038265ca1771c154f, type: 2}
+  blessedEffects:
+  - {fileID: 11400000, guid: b925749d349d14c9f8d517501eb445e0, type: 2}
+  description: 

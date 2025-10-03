@@ -16,8 +16,13 @@ public class CardData : ScriptableObject
     [Header("Rarity")]
     public CardRarity rarity = CardRarity.Common;
 
-    [Header("Default effects at start of run")]
+    [Header("Default effects at start of run (legacy)")]
     public CardEffect[] baseEffects;
+
+    [Header("Staged effects (Cursed/Purified/Blessed)")]
+    public CardEffect[] cursedEffects;
+    public CardEffect[] purifiedEffects;
+    public CardEffect[] blessedEffects;
 
     [TextArea] public string description; // Optional static flavor
 }

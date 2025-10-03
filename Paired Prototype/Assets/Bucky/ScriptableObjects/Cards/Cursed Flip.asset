@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bea9adbe89f4c0ba092faa66d57502, type: 3}
+  m_Name: Cursed Flip
+  m_EditorClassIdentifier: 
+  cardName: Cursed Flip
+  rarity: 0
+  baseEffects: []
+  cursedEffects:
+  - {fileID: 11400000, guid: b1aa2e3e4b7994c2a94d4cda1c45d482, type: 2}
+  purifiedEffects:
+  - {fileID: 11400000, guid: cbb091dda83b84680a803c0d49c8be72, type: 2}
+  blessedEffects:
+  - {fileID: 11400000, guid: bed3377e57a3d4e8381224be6f5aab06, type: 2}
+  description: 

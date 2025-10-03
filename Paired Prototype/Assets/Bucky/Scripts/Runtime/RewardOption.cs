@@ -28,6 +28,25 @@ public class RewardOption : MonoBehaviour
         oldEffectInOriginal = oldEff;
         upgradedEffectPreview = newEff;
     }
+
+    public void Apply()
+    {
+        if (DeckService.Instance == null) return;
+        switch (type)
+        {
+            case RewardType.NewCard:
+                if (newCardData != null)
+                    DeckService.Instance.AddNewCard(newCardData);
+                break;
+            case RewardType.Upgrade:
+                if (originalInstance != null)
+                {
+                    // Stage-based upgrade: advance to next stage
+                    DeckService.Instance.UpgradeCardStage(originalInstance);
+                }
+                break;
+        }
+    }
 }
 
 

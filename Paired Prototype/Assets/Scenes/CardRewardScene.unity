@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641263, b: 0.57481724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1621,9 +1621,22 @@ MonoBehaviour:
   cardPrefab: {fileID: 4386591478020460608, guid: 11ff79525f6434cd5b7fe742a303cb20, type: 3}
   continueButton: {fileID: 306227866}
   newCardPool:
-  - {fileID: 11400000, guid: 6e115a91760a64bf6962b8e6598e479f, type: 2}
-  - {fileID: 11400000, guid: bc6f3f58910294526ad8acee12b647cd, type: 2}
-  - {fileID: 11400000, guid: 94b4a5202763e4bfdaf87ec0b321a945, type: 2}
+  - {fileID: 11400000, guid: 1b58657f409d446cab5a6ee9cdfd5b48, type: 2}
+  - {fileID: 11400000, guid: 5dea1f232be774d18844aa01fe6f1c1b, type: 2}
+  - {fileID: 11400000, guid: 8323007d0700a47f5bd19d0263802c4c, type: 2}
+  - {fileID: 11400000, guid: 81192f3abdd99445db790937438e5fef, type: 2}
+  - {fileID: 11400000, guid: 4e66f3ceee529423fb0f9cf47003f827, type: 2}
+  - {fileID: 11400000, guid: 37c25287d3b3b496db87253636fd8c57, type: 2}
+  - {fileID: 11400000, guid: 9444c8ede86d14c3db0990fdbeba2198, type: 2}
+  - {fileID: 11400000, guid: d27fd402e2c484b7997bf984d643ef71, type: 2}
+  - {fileID: 11400000, guid: 65f1cd255f5a34b2f862853c6013079a, type: 2}
+  - {fileID: 11400000, guid: 3f54c0fea50344385a47c8a7e844b1ae, type: 2}
+  - {fileID: 11400000, guid: ae6700c5a03d04eb19623429b7f7466b, type: 2}
+  - {fileID: 11400000, guid: 159c9b17bda764da3ac7e5f1ca19de71, type: 2}
+  - {fileID: 11400000, guid: 08dde94f2494f4a669c0ad424a2cd96b, type: 2}
+  - {fileID: 11400000, guid: 34b0e635407464616a07d985d9f67e6f, type: 2}
+  - {fileID: 11400000, guid: 0e01ce9de24fc496283d0879ceab591c, type: 2}
+  - {fileID: 11400000, guid: 719eb832bf69d4f8e9cc38543494c348, type: 2}
   positiveMultiplier: 1.5
   negativeMultiplier: 0.5
   preferredCardWidth: 240

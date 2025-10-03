@@ -70,7 +70,57 @@ public class RewardFlowController : MonoBehaviour
             return;
         }
 
-        var data = newCardPool[Random.Range(0, newCardPool.Length)];
+        // Weighted rarity pick: Common 40%, Rare 30%, Epic 20%, Legendary 10%
+        CardData data = null;
+        {
+            var commons = new List<CardData>();
+            var rares = new List<CardData>();
+            var epics = new List<CardData>();
+            var legends = new List<CardData>();
+
+            foreach (var cd in newCardPool)
+            {
+                if (cd == null) continue;
+                switch (cd.rarity)
+                {
+                    case CardRarity.Common: commons.Add(cd); break;
+                    case CardRarity.Rare: rares.Add(cd); break;
+                    case CardRarity.Epic: epics.Add(cd); break;
+                    case CardRarity.Legendary: legends.Add(cd); break;
+                }
+            }
+
+            CardRarity desired;
+            float roll = Random.value;
+            if (roll < 0.40f) desired = CardRarity.Common;
+            else if (roll < 0.70f) desired = CardRarity.Rare;
+            else if (roll < 0.90f) desired = CardRarity.Epic;
+            else desired = CardRarity.Legendary;
+
+            // Attempt to pick from desired rarity; if empty, fallback in order Common -> Rare -> Epic -> Legendary
+            List<CardData> pickList = null;
+            switch (desired)
+            {
+                case CardRarity.Common: pickList = commons; break;
+                case CardRarity.Rare: pickList = rares; break;
+                case CardRarity.Epic: pickList = epics; break;
+                default: pickList = legends; break;
+            }
+
+            if (pickList == null || pickList.Count == 0)
+            {
+                // Fallback preference order
+                if (commons.Count > 0) pickList = commons;
+                else if (rares.Count > 0) pickList = rares;
+                else if (epics.Count > 0) pickList = epics;
+                else if (legends.Count > 0) pickList = legends;
+            }
+
+            if (pickList != null && pickList.Count > 0)
+                data = pickList[Random.Range(0, pickList.Count)];
+            else
+                data = newCardPool[Random.Range(0, newCardPool.Length)]; // last resort
+        }
         var inst = new CardInstance(data);
 
         var go = Instantiate(cardPrefab, newCardArea);
@@ -103,25 +153,34 @@ public class RewardFlowController : MonoBehaviour
             return;
         }
 
-        var picks = DeckService.Instance.PickRandomFromDeck(3);
+        // Filter out max-stage (Blessed) cards from upgrade candidates
+        var deckList = new List<CardInstance>(DeckService.Instance.Deck);
+        deckList.RemoveAll(ci => ci == null || ci.IsMaxStage);
+
+        if (deckList.Count == 0)
+        {
+            Debug.Log("[Reward] No eligible cards to upgrade (all at max stage). Hiding upgrade row.");
+            upgradeArea.gameObject.SetActive(false);
+            return;
+        }
+
+        // Take up to 3 random eligible
+        var picks = new List<CardInstance>();
+        var shuffled = DeckService.Instance.PickRandomFromDeck(deckList.Count);
+        foreach (var c in shuffled)
+        {
+            if (c != null && !c.IsMaxStage) picks.Add(c);
+            if (picks.Count >= 3) break;
+        }
 
         for (int i = 0; i < picks.Count; i++)
         {
             var original = picks[i];
             if (original == null) continue;
 
-            // 50% prefer enhancing positive, 50% prefer weakening negative
-            bool preferPositive = Random.value < 0.5f;
-
-            if (!TryBuildUpgradePreview(original, preferPositive, out var preview, out var oldEff, out var newEff))
-            {
-                // Retry with opposite type if first choice failed
-                if (!TryBuildUpgradePreview(original, !preferPositive, out preview, out oldEff, out newEff))
-                {
-                    Debug.LogWarning($"[Reward] Could not build upgrade preview for {original.GetDisplayName()}");
-                    continue;
-                }
-            }
+            // Stage-based preview: show next stage effects
+            var preview = new CardInstance(original.baseData);
+            preview.SetStage(original.GetNextStage());
 
             var go = Instantiate(cardPrefab, upgradeArea);
             go.name = $"Reward_Upgrade_{original.GetDisplayName()}_{i}";
@@ -134,7 +193,7 @@ public class RewardFlowController : MonoBehaviour
             selectable.Initialize(preview);
 
             var opt = go.AddComponent<RewardOption>();
-            opt.ConfigureAsUpgrade(original, oldEff, newEff);
+            opt.ConfigureAsUpgrade(original, null, null);
         }
     }
 

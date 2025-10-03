@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bea9adbe89f4c0ba092faa66d57502, type: 3}
+  m_Name: Cursed Cataclysm
+  m_EditorClassIdentifier: 
+  cardName: Cursed Cataclysm
+  rarity: 0
+  baseEffects: []
+  cursedEffects:
+  - {fileID: 11400000, guid: b27cc53354e2c445fbf383b0d3b8fb2e, type: 2}
+  - {fileID: 11400000, guid: ac69a95d0700d4e28a355d753e0a123f, type: 2}
+  purifiedEffects:
+  - {fileID: 11400000, guid: b27cc53354e2c445fbf383b0d3b8fb2e, type: 2}
+  blessedEffects:
+  - {fileID: 11400000, guid: 9419842f69cfc459db495d7adb246faa, type: 2}
+  description: 

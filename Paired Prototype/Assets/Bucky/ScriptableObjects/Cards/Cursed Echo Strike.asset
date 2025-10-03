@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bea9adbe89f4c0ba092faa66d57502, type: 3}
+  m_Name: Cursed Echo Strike
+  m_EditorClassIdentifier: 
+  cardName: Cursed Echo Strike
+  rarity: 0
+  baseEffects: []
+  cursedEffects:
+  - {fileID: 11400000, guid: d0b359478dc2743cfbf2f2d2324bcf06, type: 2}
+  - {fileID: 11400000, guid: 380c16aec63f149209c5f5cb2aaf3934, type: 2}
+  purifiedEffects:
+  - {fileID: 11400000, guid: d0b359478dc2743cfbf2f2d2324bcf06, type: 2}
+  blessedEffects:
+  - {fileID: 11400000, guid: cdc25396312904566a77b4af99bb6e78, type: 2}
+  description: 

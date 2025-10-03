@@ -79,20 +79,12 @@ public class RewardCardSelector : MonoBehaviour
                 }
                 break;
             case RewardOption.RewardType.Upgrade:
-                if (opt.originalInstance != null && opt.upgradedEffectPreview != null)
+                if (opt.originalInstance != null)
                 {
-                    // Replace the original effect with the upgraded one
-                    DeckService.Instance.ApplyUpgradeReplace(opt.originalInstance, opt.oldEffectInOriginal, opt.upgradedEffectPreview);
-                    Debug.Log($"[Reward] Upgraded {opt.originalInstance.GetDisplayName()} with {opt.upgradedEffectPreview.name} (replaced)");
-                    // Detailed log with before/after
-                    string before = opt.oldEffectInOriginal != null ? opt.oldEffectInOriginal.description : "(unknown)";
-                    string after = opt.upgradedEffectPreview.description;
-                    Debug.Log($"[Reward][Continue] Upgrade applied to '{opt.originalInstance.GetDisplayName()}': '{before}' -> '{after}'. Current effects:");
-                    foreach (var e in opt.originalInstance.Effects)
-                    {
-                        if (e == null) continue;
-                        Debug.Log($"  - {e.description}");
-                    }
+                    var beforeStage = opt.originalInstance.Stage;
+                    DeckService.Instance.UpgradeCardStage(opt.originalInstance);
+                    var afterStage = opt.originalInstance.Stage;
+                    Debug.Log($"[Reward] Upgraded stage: {opt.originalInstance.GetDisplayName()} {beforeStage} -> {afterStage}");
                 }
                 break;
         }

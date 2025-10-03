@@ -43,6 +43,19 @@ public class DeckService : MonoBehaviour
         target.ReplaceEffect(oldEffect, upgradedEffect);
     }
 
+    // Stage-based upgrades
+    public void UpgradeCardStage(CardInstance target)
+    {
+        if (target == null) return;
+        target.UpgradeStage();
+    }
+
+    public void SetCardStage(CardInstance target, CardInstance.CardStage stage)
+    {
+        if (target == null) return;
+        target.SetStage(stage);
+    }
+
     // Round end: maybe curse a random card by adding a negative effect
     public void MaybeApplyRandomCurse(CardEffect negativeEffect)
     {

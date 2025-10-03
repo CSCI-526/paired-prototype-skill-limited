@@ -1150,10 +1150,13 @@ MonoBehaviour:
   counterText: {fileID: 867612947}
   startButton: {fileID: 2010397439}
   cardDatas:
-  - {fileID: 11400000, guid: b34af9051b9b54cabba5e0bf9d029c97, type: 2}
-  - {fileID: 11400000, guid: 94b4a5202763e4bfdaf87ec0b321a945, type: 2}
-  - {fileID: 11400000, guid: 6e115a91760a64bf6962b8e6598e479f, type: 2}
-  - {fileID: 11400000, guid: bc6f3f58910294526ad8acee12b647cd, type: 2}
+  - {fileID: 11400000, guid: 0e01ce9de24fc496283d0879ceab591c, type: 2}
+  - {fileID: 11400000, guid: 1b58657f409d446cab5a6ee9cdfd5b48, type: 2}
+  - {fileID: 11400000, guid: d27fd402e2c484b7997bf984d643ef71, type: 2}
+  - {fileID: 11400000, guid: 159c9b17bda764da3ac7e5f1ca19de71, type: 2}
+  - {fileID: 11400000, guid: 4e66f3ceee529423fb0f9cf47003f827, type: 2}
+  - {fileID: 11400000, guid: 3f54c0fea50344385a47c8a7e844b1ae, type: 2}
+  - {fileID: 11400000, guid: 34b0e635407464616a07d985d9f67e6f, type: 2}
   cardPrefab: {fileID: 4386591478020460608, guid: 11ff79525f6434cd5b7fe742a303cb20, type: 3}
   deckSize: 4
 --- !u!1 &1418085831
