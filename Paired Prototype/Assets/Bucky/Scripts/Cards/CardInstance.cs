@@ -45,4 +45,9 @@ public class CardInstance
     {
         return baseData != null ? baseData.cardName : "Card";
     }
+
+    public CardRarity GetRarity()
+    {
+        return baseData != null ? baseData.rarity : CardRarity.Common;
+    }
 }

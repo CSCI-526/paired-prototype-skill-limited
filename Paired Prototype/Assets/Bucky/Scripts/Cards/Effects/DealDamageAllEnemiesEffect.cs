@@ -14,6 +14,20 @@ public class DealDamageAllEnemiesEffect : CardEffect
     public override void Execute(Health player, Health target)
     {
         int bonus = player != null ? player.power : 0;
+        int final = Mathf.Max(0, damage + bonus);
+
+        var playerGO = UnityEngine.GameObject.FindGameObjectWithTag("Player");
+        if (playerGO != null)
+        {
+            var pa = playerGO.GetComponent<PlayerAttack>();
+            if (pa != null)
+            {
+                pa.DealAoeWithAnimation(final);
+                return;
+            }
+        }
+
+        // Fallback
         var enemies = UnityEngine.GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var e in enemies)
         {
@@ -21,7 +35,6 @@ public class DealDamageAllEnemiesEffect : CardEffect
             var h = e.GetComponent<Health>();
             if (h != null)
             {
-                int final = Mathf.Max(0, damage + bonus);
                 h.TakeDamage(final);
             }
         }

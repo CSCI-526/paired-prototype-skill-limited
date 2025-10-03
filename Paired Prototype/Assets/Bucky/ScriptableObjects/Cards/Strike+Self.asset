@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Strike+Self
   baseEffects:
-  - {fileID: 11400000, guid: 3566ba17123814299b60c73ac4ac7461, type: 2}
-  - {fileID: 11400000, guid: 279d0dd4efb044b97ab870d9915bf5e1, type: 2}
+  - {fileID: 11400000, guid: 641d5f45d185842c08c53eaaea4801d2, type: 2}
+  - {fileID: 11400000, guid: 1d1bd9d3d2630401a93ef2790de3c0ac, type: 2}
   description: Deal 6 damage to a target (+ Power). Then take 4 self-damage.

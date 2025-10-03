@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Whirlwind-Lose
   baseEffects:
-  - {fileID: 11400000, guid: 100dcf2f7053a436f9a0fdbe7dc6b679, type: 2}
-  - {fileID: 11400000, guid: 4ff1763a540014e59a8830b04fec4cd2, type: 2}
+  - {fileID: 11400000, guid: b6bef045c07664fb9b93903cfb3716a5, type: 2}
+  - {fileID: 11400000, guid: 658320d2287324842989a83dbdf9bbb3, type: 2}
   description: Deal 6 damage to ALL enemies (+ Power). Then lose 1 Power.

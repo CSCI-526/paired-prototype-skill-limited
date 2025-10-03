@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Rage
   baseEffects:
-  - {fileID: 11400000, guid: 72120c0546b2143caa3b1b974908b08c, type: 2}
-  - {fileID: 11400000, guid: fe7160b41c155410fbaabaf513d2191e, type: 2}
+  - {fileID: 11400000, guid: d161ac8d624eb439f94a36ca870fbf08, type: 2}
+  - {fileID: 11400000, guid: bbc04b0ab3d494d2783b5b13c15f5d52, type: 2}
   description: Gain 2 Power. Then take 10 self-damage.

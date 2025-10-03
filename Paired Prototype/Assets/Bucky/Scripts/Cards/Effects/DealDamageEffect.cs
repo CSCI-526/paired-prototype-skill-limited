@@ -15,9 +15,25 @@ public class DealDamageEffect : CardEffect
 
     public override void Execute(Health player, Health target)
     {
+        if (target == null) return;
+
         int bonus = player != null ? player.power : 0;
         int final = Mathf.Max(0, damage + bonus);
-        target?.TakeDamage(final);
+
+        // Use player attack animation if available
+        var playerGO = UnityEngine.GameObject.FindGameObjectWithTag("Player");
+        if (playerGO != null)
+        {
+            var pa = playerGO.GetComponent<PlayerAttack>();
+            if (pa != null)
+            {
+                pa.DealDamageWithAnimation(target, final);
+                return;
+            }
+        }
+
+        // Fallback: apply damage directly
+        target.TakeDamage(final);
     }
 
     public override bool SupportsUpgrade => true;

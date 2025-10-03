@@ -158,9 +158,9 @@ public class ButtonActions : MonoBehaviour
             }
             else
             {
-                // Fallback to temp player attack if no cards
-                p_atk.Attack();
-                yield return new WaitForSeconds(0.5f);
+                // No selected card and deck empty: no action
+                Debug.LogWarning("[Play] No cards available to play.");
+                yield return new WaitForSeconds(0.2f);
             }
         }
 

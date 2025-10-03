@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Defend-LosePower
   baseEffects:
-  - {fileID: 11400000, guid: 91206e0834c7a4a23a7d04eae1d7d5a9, type: 2}
-  - {fileID: 11400000, guid: d3b49e7899a5f4ecdb0366ef6a43772a, type: 2}
+  - {fileID: 11400000, guid: 4e8f6b4655d8a4f0a98b52f18a5d05d7, type: 2}
+  - {fileID: 11400000, guid: 85d7d3c6d05414ce99ce569bed4f25b1, type: 2}
   description: Gain 5 Block. Then lose 1 Power.
