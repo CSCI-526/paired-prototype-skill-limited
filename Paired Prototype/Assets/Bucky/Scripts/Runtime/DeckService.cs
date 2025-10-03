@@ -23,7 +23,10 @@ public class DeckService : MonoBehaviour
     {
         Deck.Clear();
         foreach (var data in startingCards)
+        {
+            if (data == null) continue; // guard against null entries
             Deck.Add(new CardInstance(data));
+        }
     }
 
     // Reward: add new card (wrap the SO in a CardInstance)
@@ -71,7 +74,18 @@ public class DeckService : MonoBehaviour
     // Helper: pick N random cards from deck (for upgrade offers)
     public List<CardInstance> PickRandomFromDeck(int count)
     {
-        var list = new List<CardInstance>(Deck);
+        // Work on a filtered copy that excludes nulls/invalids
+        var list = new List<CardInstance>(Deck.Count);
+        for (int i = 0; i < Deck.Count; i++)
+        {
+            var ci = Deck[i];
+            if (ci != null && ci.baseData != null) list.Add(ci);
+        }
+        if (list.Count == 0)
+        {
+            Debug.LogWarning("[DeckService] PickRandomFromDeck: No valid cards in deck.");
+            return list;
+        }
         for (int i = 0; i < list.Count; i++)
         {
             int r = Random.Range(i, list.Count);
