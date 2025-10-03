@@ -19,7 +19,7 @@ public class EnemyAttack : MonoBehaviour
     private IEnumerator AttackLunge()
     {
         Vector3 start = this.transform.localPosition;
-        Vector3 forward = start - new Vector3(1.0f, 0, 0);
+        Vector3 forward = start + Vector3.left * 50.0f;
 
         float t = 0;
         while (t < 1f)
