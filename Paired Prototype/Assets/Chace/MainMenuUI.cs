@@ -47,6 +47,7 @@ public class MainMenuUI : MonoBehaviour
         foreach (var idx in selected)
             chosen.Add(cardDatas[idx]);
         SelectedDeck.Set(chosen);
+        RunProgress.Reset();
         LevelLoader.Instance?.LoadAction();
     }
 

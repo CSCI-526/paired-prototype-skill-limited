@@ -267,7 +267,7 @@ public class ButtonActions : MonoBehaviour
         {
             //change level UI
             var lm = FindObjectOfType<LevelManager>();
-            lm.NextLevel();
+            //lm.NextLevel();
 
             //move onto next level
             if (!string.IsNullOrEmpty(rewardSceneName))

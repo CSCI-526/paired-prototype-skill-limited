@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
-        RunProgress.Level++;
+        RunProgress.Level = RunProgress.Level + 1;
         currLevel = RunProgress.Level;
         RefreshLabel();
     }
@@ -22,6 +22,6 @@ public class LevelManager : MonoBehaviour
     public void RefreshLabel()
     {
         if (levelText != null)
-            levelText.text = $"Level {RunProgress.Level}";
+            levelText.text = $"Level {currLevel}";
     }
 }
