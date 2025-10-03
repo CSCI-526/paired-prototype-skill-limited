@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
@@ -140,6 +141,24 @@ public class EnemyWaveManager : MonoBehaviour
             Debug.Log("[EnemyWaveManager] Start(): AfterReward -> upgrade + spawn");
             ApplyUpgradeAndSpawn();
             return;
+        }
+
+        // Ensure at least one enemy exists after scene load. We wait one frame to
+        // allow other Start() methods (e.g., ActionSceneLoad) to spawn first.
+        StartCoroutine(EnsureSpawnedAfterStart());
+    }
+
+    private IEnumerator EnsureSpawnedAfterStart()
+    {
+        yield return null;
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies == null || enemies.Length == 0)
+        {
+            Debug.Log("[EnemyWaveManager] No enemies found after scene load; spawning from progress.");
+            SpawnWaveFromProgress();
+
+            var lvl = FindObjectOfType<LevelManager>();
+            lvl?.RefreshLabel();
         }
     }
 }

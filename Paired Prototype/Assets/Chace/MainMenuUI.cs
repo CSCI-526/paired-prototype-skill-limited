@@ -47,7 +47,16 @@ public class MainMenuUI : MonoBehaviour
         foreach (var idx in selected)
             chosen.Add(cardDatas[idx]);
         SelectedDeck.Set(chosen);
+        // Reset run progress and rebuild the runtime deck immediately for a clean start
         RunProgress.Reset();
+        try
+        {
+            if (DeckService.Instance != null)
+            {
+                DeckService.Instance.BuildStartingDeck(chosen);
+            }
+        }
+        catch {}
         LevelLoader.Instance?.LoadAction();
     }
 

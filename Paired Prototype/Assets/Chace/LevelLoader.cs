@@ -25,7 +25,13 @@ public class LevelLoader : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadMainMenu() => LoadScene(mainMenuScene);
+    public void LoadMainMenu()
+    {
+        // Reset run state so a fresh game starts correctly
+        try { RunSignals.AfterReward = false; } catch {}
+        try { RunProgress.Reset(); } catch {}
+        LoadScene(mainMenuScene);
+    }
     public void LoadAction()   => LoadScene(actionScene);
     public void LoadReward()   => LoadScene(rewardScene);
     public void LoadGameOver() => LoadScene(gameOverScene);
